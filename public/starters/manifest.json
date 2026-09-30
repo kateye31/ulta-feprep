@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "folders": ["professor-drills", "exam-redo", "scratch", "my-code"],
+  "files": [
+    "scratch/hello.c",
+    "professor-drills/1-linked-list.c",
+    "professor-drills/2-bst.c",
+    "professor-drills/3-bitwise.c",
+    "professor-drills/4-heap.c",
+    "professor-drills/5-runtime-lab.c",
+    "exam-redo/sum26-q1-odd-stars.c",
+    "exam-redo/sum26-q2-house-points.c",
+    "exam-redo/sum26-q3-ring-queue.c",
+    "exam-redo/spr20-delete-shows.c",
+    "exam-redo/sum19-cartpoints.c",
+    "exam-redo/sum23-freelist-fix.c"
+  ]
+}
