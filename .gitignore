@@ -5,3 +5,6 @@ out/
 next-env.d.ts
 .env*.local
 .DS_Store
+
+# your personal save file (synced by OneDrive, kept out of git)
+data/

@@ -1,4 +1,5 @@
-/** A tiny virtual file system for the Code Studio, saved in this browser's localStorage. */
+/** A tiny virtual file system for the Code Studio. Saved in the browser AND in data/fe-cafe-save.json. */
+import { KEYS, persist, readLocal } from "./persist";
 
 export type StudioFS = {
   version: 1;
@@ -10,11 +11,11 @@ export type StudioFS = {
   memcheck: boolean;
 };
 
-const KEY = "fe-cafe-studio-v1";
+const KEY = KEYS.studio;
 
 export function loadFS(): StudioFS | null {
   try {
-    const raw = localStorage.getItem(KEY);
+    const raw = readLocal(KEY);
     if (!raw) return null;
     const fs = JSON.parse(raw) as StudioFS;
     return fs && fs.version === 1 && fs.files ? fs : null;
@@ -24,12 +25,7 @@ export function loadFS(): StudioFS | null {
 }
 
 export function saveFS(fs: StudioFS): boolean {
-  try {
-    localStorage.setItem(KEY, JSON.stringify(fs));
-    return true;
-  } catch {
-    return false;
-  }
+  return persist(KEY, JSON.stringify(fs));
 }
 
 type Manifest = { version: number; folders: string[]; files: string[] };
@@ -59,11 +55,11 @@ export async function seedFS(): Promise<StudioFS> {
     fs.folders = [...m.folders];
     const texts = await Promise.all(m.files.map(fetchStarter));
     m.files.forEach((p, i) => {
-      if (texts[i] != null) fs.files[p] = { content: texts[i]!, updated: Date.now() };
+      if (texts[i] != null) fs.files[p] = { content: texts[i]!, updated: 0 };
     });
   } catch {
     fs.folders = ["my-code"];
-    fs.files["my-code/main.c"] = { content: "", updated: Date.now() };
+    fs.files["my-code/main.c"] = { content: "", updated: 0 };
     fs.open = "my-code/main.c";
   }
   return fs;

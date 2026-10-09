@@ -1,15 +1,15 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { KEYS, persist, readLocal, ready } from "./persist";
 
-const KEY = "fe-cafe-stamps-v1";
 const listeners = new Set<() => void>();
 let cache: string[] | null = null;
 
 function read(): string[] {
   if (cache) return cache;
   try {
-    const raw = window.localStorage.getItem(KEY);
+    const raw = readLocal(KEYS.stamps);
     cache = raw ? (JSON.parse(raw) as string[]) : [];
   } catch {
     cache = [];
@@ -19,12 +19,16 @@ function read(): string[] {
 
 function write(next: string[]) {
   cache = next;
-  try {
-    window.localStorage.setItem(KEY, JSON.stringify(next));
-  } catch {
-    /* private mode: stamps just won't persist */
-  }
+  persist(KEYS.stamps, JSON.stringify(next));
   listeners.forEach((l) => l());
+}
+
+// once the save file has been merged in, re-read
+if (typeof window !== "undefined") {
+  ready().then(() => {
+    cache = null;
+    listeners.forEach((l) => l());
+  });
 }
 
 const EMPTY: string[] = [];

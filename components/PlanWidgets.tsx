@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { KEYS, persist, readLocal, ready } from "@/lib/persist";
 
-const DATE_KEY = "fe-cafe-exam-date";
+const DATE_KEY = KEYS.examDate;
 
 const PHASES = [
   { share: 0.35, emoji: "🧱", name: "Build it yourself", what: "Studio drills: linked list, BST, heap, bitwise. Runtime Gym every day. Re-read one topic per day (TL;DR + worked problem)." },
@@ -14,15 +15,11 @@ const PHASES = [
 export function ExamCountdown() {
   const [date, setDate] = useState("");
   useEffect(() => {
-    try {
-      setDate(localStorage.getItem(DATE_KEY) ?? "");
-    } catch {}
+    ready().then(() => setDate(readLocal(DATE_KEY) ?? ""));
   }, []);
   const save = (d: string) => {
     setDate(d);
-    try {
-      localStorage.setItem(DATE_KEY, d);
-    } catch {}
+    persist(DATE_KEY, d);
   };
 
   const days = date ? Math.ceil((new Date(date + "T09:00:00").getTime() - Date.now()) / 86400000) : null;

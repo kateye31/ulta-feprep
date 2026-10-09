@@ -3,8 +3,9 @@
 import { useEffect, useMemo, useState } from "react";
 import confetti from "canvas-confetti";
 import type { GymQ } from "@/content/runtime-gym";
+import { KEYS, persist, readLocal, ready } from "@/lib/persist";
 
-const BEST_KEY = "fe-cafe-gym-best";
+const BEST_KEY = KEYS.gymBest;
 const LEVELS = [
   { id: 0, label: "🍱 All" },
   { id: 1, label: "🌱 Warm-up" },
@@ -33,9 +34,7 @@ export default function RuntimeGym({ questions }: { questions: GymQ[] }) {
   const [best, setBest] = useState(0);
 
   useEffect(() => {
-    try {
-      setBest(+(localStorage.getItem(BEST_KEY) ?? 0));
-    } catch {}
+    ready().then(() => setBest(+(readLocal(BEST_KEY) ?? 0)));
   }, []);
 
   useEffect(() => {
@@ -59,9 +58,7 @@ export default function RuntimeGym({ questions }: { questions: GymQ[] }) {
       setStreak(s);
       if (s > best) {
         setBest(s);
-        try {
-          localStorage.setItem(BEST_KEY, String(s));
-        } catch {}
+        persist(BEST_KEY, String(s));
       }
       if (s > 0 && s % 5 === 0) confetti({ particleCount: 80, spread: 70, origin: { y: 0.7 }, colors: ["#c2a9f2", "#f39cbd", "#f7d77f"] });
     } else setStreak(0);

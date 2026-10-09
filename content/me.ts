@@ -52,6 +52,8 @@ export type JournalEntry = {
   code: string;
   /** a Code Studio file to practice this question for real */
   redo?: string;
+  /** last edit time, used when merging saves from different browsers */
+  updated?: number;
 };
 
 export const JOURNAL_SEED: JournalEntry[] = [

@@ -4,8 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { JOURNAL_SEED, type JournalEntry } from "@/content/me";
 import { loadFS, saveFS, seedFS, writeFile } from "@/lib/studio-fs";
+import { KEYS, persist, readLocal, ready } from "@/lib/persist";
 
-const KEY = "fe-cafe-journal-v1";
+const KEY = KEYS.journal;
 const FIELDS: { k: keyof JournalEntry; label: string; ph: string; wide?: boolean }[] = [
   { k: "category", label: "Category", ph: "DSN / ALG / ANL" },
   { k: "subcat", label: "Sub cat", ph: "Linked List" },
@@ -38,19 +39,19 @@ export default function Journal() {
   const [draft, setDraft] = useState<JournalEntry>(blank());
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(KEY);
-      setItems(raw ? (JSON.parse(raw) as JournalEntry[]) : JOURNAL_SEED);
-    } catch {
-      setItems(JOURNAL_SEED);
-    }
+    ready().then(() => {
+      try {
+        const raw = readLocal(KEY);
+        setItems(raw ? (JSON.parse(raw) as JournalEntry[]) : JOURNAL_SEED);
+      } catch {
+        setItems(JOURNAL_SEED);
+      }
+    });
   }, []);
 
   useEffect(() => {
     if (!items) return;
-    try {
-      localStorage.setItem(KEY, JSON.stringify(items));
-    } catch {}
+    persist(KEY, JSON.stringify(items));
   }, [items]);
 
   const cats = useMemo(() => ["All", ...Array.from(new Set((items ?? []).map((i) => i.category.toUpperCase()).filter(Boolean)))], [items]);
@@ -73,9 +74,10 @@ export default function Journal() {
     setEditing(e.id);
   };
   const saveDraft = () => {
+    const d = { ...draft, updated: Date.now() };
     setItems((list) => {
       const l = list ?? [];
-      return l.some((x) => x.id === draft.id) ? l.map((x) => (x.id === draft.id ? draft : x)) : [draft, ...l];
+      return l.some((x) => x.id === d.id) ? l.map((x) => (x.id === d.id ? d : x)) : [d, ...l];
     });
     setEditing(null);
   };

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { KEYS, persist, readLocal, ready } from "@/lib/persist";
 
 const MAIN = [
   { href: "/menu", label: "📜 Menu" },
@@ -27,14 +28,22 @@ export default function Nav() {
     setOpen(false);
     if (more.current) more.current.open = false;
   }, [path]);
-  useEffect(() => setDark(document.documentElement.dataset.theme === "dark"), []);
+  useEffect(() => {
+    setDark(document.documentElement.dataset.theme === "dark");
+    // theme saved from another browser/port? apply it once the save file is merged
+    ready().then(() => {
+      const t = readLocal(KEYS.theme);
+      if (t === "dark" || t === "light") {
+        document.documentElement.dataset.theme = t;
+        setDark(t === "dark");
+      }
+    });
+  }, []);
 
   const toggleTheme = () => {
     const next = dark ? "light" : "dark";
     document.documentElement.dataset.theme = next;
-    try {
-      localStorage.setItem("fe-cafe-theme", next);
-    } catch {}
+    persist(KEYS.theme, next);
     setDark(!dark);
   };
 

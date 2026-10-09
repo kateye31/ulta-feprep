@@ -6,6 +6,7 @@ import CodeEditor, { type EditorMark } from "./CodeEditor";
 import FileTree from "./FileTree";
 import Terminal, { type TLine } from "./Terminal";
 import type { RunResult } from "@/lib/runner";
+import { ready } from "@/lib/persist";
 import {
   baseName,
   fetchStarter,
@@ -65,6 +66,7 @@ export default function Studio() {
   useEffect(() => {
     document.documentElement.dataset.page = "studio";
     (async () => {
+      await ready();
       let f = loadFS();
       const fresh = !f;
       if (!f) f = await seedFS();
@@ -369,7 +371,7 @@ export default function Studio() {
           </label>
         </div>
         <p className="studio-note">
-          💾 Saves automatically in this browser{saveFailed ? " (⚠ storage is full or blocked!)" : ""}. Make a backup now and then, since clearing browser data erases it.
+          💾 Saves automatically to <code>data/fe-cafe-save.json</code> in your project folder (+ a daily backup){saveFailed ? " (⚠ browser storage is full or blocked!)" : ""}.
         </p>
       </aside>
 
