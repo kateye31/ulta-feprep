@@ -84,6 +84,19 @@ export default function CheatSheet() {
           </ul>
         </Recipe>
 
+        <Recipe icon="📝" title="Strings in structs (my note)">
+          <table className="cozy mono">
+            <thead>
+              <tr><th>Declared as</th><th>Assign with</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>char *name;</td><td>node-&gt;name = &quot;Minecraft&quot;; ✅</td></tr>
+              <tr><td>char name[90];</td><td>strcpy(node-&gt;name, &quot;Minecraft&quot;); ✅</td></tr>
+            </tbody>
+          </table>
+          <p style={{ margin: "8px 0 0", fontSize: "0.9rem" }}>Pointer → <b>=</b> points it. Array → <b>strcpy</b> copies in (arrays can&apos;t be assigned with =).</p>
+        </Recipe>
+
         <Recipe icon="🚂" title="Linked lists">
           <ul>
             <li>Insert after temp: <code>n-&gt;next = temp-&gt;next; temp-&gt;next = n;</code></li>

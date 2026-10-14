@@ -169,6 +169,30 @@ void freeCafes(Cafe **list, int n) {
       ),
     },
     {
+      title: "How to put a string INTO a struct (my note 📝)",
+      body: (
+        <>
+          <div className="table-scroll">
+            <table className="cozy">
+              <thead>
+                <tr><th>Struct declaration</th><th>How to assign a string</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>char *name;</code></td><td><code>node-&gt;name = &quot;Minecraft&quot;;</code> ✅</td></tr>
+                <tr><td><code>char name[90];</code></td><td><code>strcpy(node-&gt;name, &quot;Minecraft&quot;);</code> ✅</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style={{ marginTop: 10 }}>
+            <b>Why:</b> <code>char *name</code> is a sticky note 📌, so <code>=</code> just points it at the text. <code>char name[90]</code> is a box with 90 slots 📦, and you can&apos;t <code>=</code> a whole array in C (compile error!). You have to copy the letters in with <code>strcpy</code>.
+          </p>
+          <p style={{ margin: 0 }}>
+            <b>Bonus:</b> if the text comes from a buffer you&apos;ll reuse (like <code>scanf</code> into <code>buf</code>), the pointer version needs its own memory: <code>node-&gt;name = malloc(strlen(buf) + 1); strcpy(node-&gt;name, buf);</code>
+          </p>
+        </>
+      ),
+    },
+    {
       title: "C strings end with a secret '\\0'",
       body: <p><code>&quot;cat&quot;</code> is really 4 chars: <code>c a t \0</code>. <code>strlen</code> says 3 because it doesn&apos;t count the terminator, so allocate <code>strlen(s) + 1</code>. Forget it and <code>strcpy</code> writes past your memory.</p>,
     },
@@ -236,6 +260,8 @@ void freeCafes(Cafe **list, int n) {
     { front: "What is a memory leak?", back: "Heap memory you can no longer reach (lost the pointer) but never freed." },
     { front: "What is a dangling pointer?", back: "A pointer that still holds the address of memory that was already freed." },
     { front: "Order to free a 2D array?", back: "Free each row first (grid[i]), then the outer array (grid). Inside-out!" },
+    { front: "Struct has char *name. How do you give it \"Minecraft\"?", back: "node->name = \"Minecraft\";  (a pointer can just point at the text)" },
+    { front: "Struct has char name[90]. How do you give it \"Minecraft\"?", back: "strcpy(node->name, \"Minecraft\");  (you can't = an array in C, so copy the letters in)" },
     { front: "Why strlen(s) + 1?", back: "Room for the '\\0' null terminator at the end of every C string." },
     { front: "p->x means…", back: "(*p).x: follow the pointer, then access field x." },
   ],
