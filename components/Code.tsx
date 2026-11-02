@@ -4,7 +4,7 @@ const KW = new Set("if else for while do return break continue switch case defau
 const TYPES = new Set("int char float double long short unsigned signed bool node FILE size_t".split(" "));
 const RE = /(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(^[ \t]*#\w+[^\n]*)|(\b0x[0-9a-fA-F]+\b|\b\d+(?:\.\d+)?\b)|([A-Za-z_]\w*)(?=\s*\()|([A-Za-z_]\w*)/gm;
 
-function highlight(src: string) {
+export function highlight(src: string) {
   const out: React.ReactNode[] = [];
   let last = 0;
   let m: RegExpExecArray | null;

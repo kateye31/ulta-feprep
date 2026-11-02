@@ -2,75 +2,67 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { topicsBySection } from "@/content";
 import { SECTIONS } from "@/lib/sections";
-import { DoneBadge, MenuCheck } from "@/components/Stamp";
-import { Mochi } from "@/components/characters";
+import { MenuCheck } from "@/components/Stamp";
+import { RisoArt } from "@/components/RisoArt";
 
-export const metadata: Metadata = { title: "📜 Menu", description: "Every Foundation Exam topic, served café style." };
+export const metadata: Metadata = { title: "Topics", description: "Every Foundation Exam topic, as the zine's contents page." };
+
+/** each exam section prints on its own paper stock */
+const STOCK: Record<string, { bg: string; ink: "cherry" | "plum" | "cornflower" | "leaf"; tags: string[] }> = {
+  IA: { bg: "var(--sunflower)", ink: "cherry", tags: ["train", "cat"] },
+  IB: { bg: "var(--mint)", ink: "leaf", tags: ["garden", "owl"] },
+  IIA: { bg: "var(--pink)", ink: "plum", tags: ["moon", "night"] },
+  IIB: { bg: "var(--stock-cream)", ink: "cornflower", tags: ["goldfish", "water"] },
+};
 
 export default function MenuPage() {
   const groups = topicsBySection();
+  let n = 0;
   return (
-    <div className="wrap" style={{ padding: "40px 0 80px" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap", marginBottom: 24 }} data-reveal>
-        <Mochi size={90} className="bob" />
-        <div>
-          <span className="eyebrow">what are you craving today?</span>
-          <h1 style={{ margin: 0 }}>📜 Today&apos;s Menu</h1>
-          <p className="muted" style={{ margin: 0 }}>18 topics, 4 sections. 🐾 = stamped. Go in order, or pick whatever sounds tasty.</p>
-        </div>
-      </div>
+    <div className="wrap contents">
+      <header className="contents-head">
+        <h1>Topics</h1>
+        <p>18 topics in the four exam sections. Each one has the TL;DR, the way Guha teaches it, a playground, exam traps and practice cards. A paw stamp means you finished it.</p>
+      </header>
 
-      <div className="menu-board" data-reveal>
-        <div className="grid grid-2" style={{ gap: 30 }}>
-          {groups.map((g) => {
-            const s = SECTIONS[g.id];
-            return (
-              <div key={g.id}>
-                <h2 style={{ marginBottom: 2 }}>{s.emoji} {s.menuName}</h2>
-                <div className="chalk" style={{ marginBottom: 8 }}>{s.name}: {s.part}</div>
-                <div className="menu-items">
-                  {g.topics.map((t) => (
-                    <Link key={t.slug} href={`/topics/${t.slug}`} className="menu-item">
-                      <span aria-hidden>{t.emoji}</span>
-                      <span>
-                        <span className="name">{t.title}</span>
-                        <span className="desc">{t.minutes} min · {t.picture.title}</span>
-                      </span>
-                      <span className="dots" />
-                      <MenuCheck slug={t.slug} />
-                    </Link>
-                  ))}
+      <div className="contents-grid">
+        {groups.map((g, gi) => {
+          const s = SECTIONS[g.id];
+          const st = STOCK[g.id] ?? STOCK.IIB;
+          return (
+            <section key={g.id} className="contents-sec" style={{ background: st.bg, rotate: `${gi % 2 ? 0.6 : -0.6}deg` }} aria-labelledby={`sec-${g.id}`}>
+              <div className="contents-sec-head">
+                <div>
+                  <h2 id={`sec-${g.id}`}>{s.part.replace(/^Part [AB]:\s*/, "")}</h2>
+                  <p className="contents-sec-sub">
+                    {s.name} · {g.topics.length} topics
+                  </p>
                 </div>
+                <RisoArt tags={st.tags} seed={g.id} ink={st.ink} className="contents-print" credit={false} />
               </div>
-            );
-          })}
-        </div>
+              <ol className="contents-list">
+                {g.topics.map((t) => {
+                  n++;
+                  return (
+                    <li key={t.slug}>
+                      <Link href={`/topics/${t.slug}`} className="contents-item">
+                        <span className="contents-n">{String(n).padStart(2, "0")}</span>
+                        <span className="contents-text">
+                          <span className="name">{t.title}</span>
+                          <span className="desc">{t.picture.title}</span>
+                        </span>
+                        <span className="contents-dots" aria-hidden />
+                        <span className="contents-min">{t.minutes} min</span>
+                        <MenuCheck slug={t.slug} />
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ol>
+            </section>
+          );
+        })}
       </div>
-
-      {groups.map((g) => {
-        const s = SECTIONS[g.id];
-        return (
-          <section key={g.id} style={{ marginTop: 50 }}>
-            <div data-reveal>
-              <span className={`chip ${g.id}`}>{s.emoji} {s.name}</span>
-              <h2 style={{ marginTop: 8 }}>{s.part}</h2>
-            </div>
-            <div className="grid grid-3" data-stagger>
-              {g.topics.map((t) => (
-                <Link key={t.slug} href={`/topics/${t.slug}`} className="topic-card">
-                  <DoneBadge slug={t.slug} />
-                  <span className="emoji" aria-hidden>{t.emoji}</span>
-                  <h3>{t.title}</h3>
-                  <p>{t.tagline}</p>
-                  <span className="muted" style={{ fontSize: "0.85rem", fontWeight: 700 }}>
-                    ⏱ {t.minutes} min{t.widgets?.length ? ` · 🎮 ${t.widgets.length} playground${t.widgets.length > 1 ? "s" : ""}` : ""}
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </section>
-        );
-      })}
     </div>
   );
 }

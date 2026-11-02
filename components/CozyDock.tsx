@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import confetti from "canvas-confetti";
-import { Mochi } from "./characters";
+import { IconRain, IconTarget, IconTimer } from "./icons";
 
 type Mode = { id: string; label: string; mins: number; msg: string };
 const MODES: Mode[] = [
@@ -155,11 +155,6 @@ export default function CozyDock() {
           <svg className="timer-ring" viewBox="0 0 150 150" aria-hidden>
             <circle cx="75" cy="75" r={R} fill="none" stroke="var(--line)" strokeWidth="10" />
             <circle cx="75" cy="75" r={R} fill="none" stroke="var(--accent)" strokeWidth="10" strokeLinecap="round" strokeDasharray={C} strokeDashoffset={C * (1 - pct)} transform="rotate(-90 75 75)" style={{ transition: "stroke-dashoffset 1s linear" }} />
-            <foreignObject x="35" y="30" width="80" height="80">
-              <div style={{ display: "grid", placeItems: "center", height: "100%" }}>
-                <Mochi size={70} />
-              </div>
-            </foreignObject>
           </svg>
           <div className="timer-face" aria-live="polite">{fmt(left)}</div>
           <p className="muted center" style={{ fontSize: "0.9rem", margin: "0 0 10px" }}>
@@ -189,13 +184,13 @@ export default function CozyDock() {
       )}
       <div className="dock-bar" role="toolbar" aria-label="Cozy study tools">
         <button className="icon-btn" aria-pressed={panel === "timer"} onClick={() => setPanel(panel === "timer" ? null : "timer")} title="Brew timer (pomodoro)" aria-label="Brew timer">
-          {running ? "⏳" : "🍅"}
+          <IconTimer />{running && <span className="dock-time">{fmt(left)}</span>}
         </button>
         <button className="icon-btn" aria-pressed={panel === "rain" || rain.on} onClick={() => setPanel(panel === "rain" ? null : "rain")} title="Rain sounds" aria-label="Rain sounds">
-          🌧
+          <IconRain />
         </button>
         <button className="icon-btn" aria-pressed={focus} onClick={() => setFocus(!focus)} title="Focus mode: hides decorations and dims sections you aren't reading" aria-label="Focus mode">
-          🎯
+          <IconTarget />
         </button>
       </div>
     </div>

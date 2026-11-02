@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import { RisoArt } from "@/components/RisoArt";
 import FlashcardDeck from "@/components/FlashcardDeck";
-import { Pip } from "@/components/characters";
 import { TOPICS } from "@/content";
 
 export const metadata: Metadata = { title: "🃏 Flashcards", description: "Quick-fire flashcards for every Foundation Exam topic." };
@@ -10,8 +10,7 @@ export default function FlashcardsPage() {
   return (
     <div className="wrap" style={{ padding: "40px 0 80px" }}>
       <div className="center" style={{ marginBottom: 24 }}>
-        <Pip size={90} className="bob" />
-        <span className="eyebrow">quick sips of knowledge</span>
+        <RisoArt tags={["bird", "butterfly"]} seed="flashcards" ink="cherry" className="page-print" credit={false} />
         <h1 style={{ margin: 0 }}>🃏 Flashcards</h1>
         <p className="muted">{cards.length} cards from all 18 topics. Flip, then be honest with yourself. &ldquo;Again&rdquo; is not a failure! 🌱</p>
       </div>

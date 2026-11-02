@@ -1,0 +1,55 @@
+{
+  "title": "Riso Card Zine: pick the paper stock",
+  "question": "Your combo (zine page + dealt cards), with colors measured from your own references. The one you pick becomes the Today page; the other two become the paper stock for other sections.",
+  "options": [
+    {
+      "id": "zine-teal",
+      "kind": "grounded",
+      "label": "Sunflower on Teal",
+      "lineage": "your sleepy.tofu cards: sunflower card on a teal ground",
+      "thesis": "A riso zine page on mint-teal stock, with today dealt as sunflower, pink and sky cards.",
+      "palette": ["#a9d3c9", "#f9d36f", "#f4b9c8", "#9cc0e8", "#de5135", "#3a2630"],
+      "materials": ["mint stock with print grain", "thick card frames in warm plum ink", "hand-lettered caps"],
+      "viewport": "Huge hand-lettered date with a coral misprint shadow, stamped month grid, and the MAIN card on top of a fanned hand with one coral Solve button.",
+      "risk": "The coolest and calmest of the three; the teal can read pastel-soft if the coral is used too sparingly.",
+      "html": ".impeccable/mocks/decision/zine-teal.html"
+    },
+    {
+      "id": "zine-cornflower",
+      "kind": "grounded",
+      "label": "Cream on Cornflower",
+      "lineage": "your cat-in-a-blue-sweater and portfolio-sky references",
+      "thesis": "The same zine on bright cornflower stock: cream cards, tangerine and pink, like a clear afternoon.",
+      "palette": ["#79a6e0", "#fdf3dc", "#f3a35a", "#e5b7c4", "#e8692f", "#2b2340"],
+      "materials": ["cornflower stock with crayon grain", "cream card stock", "hand-lettered caps"],
+      "viewport": "Same composition on a saturated sky blue; the cream MAIN card pops hardest of the three.",
+      "risk": "The boldest ground; long reading pages would need their own lighter stock.",
+      "html": ".impeccable/mocks/decision/zine-cornflower.html"
+    },
+    {
+      "id": "zine-kraft",
+      "kind": "grounded",
+      "label": "Mustard on Kraft",
+      "lineage": "your frog-sticker, Little Cinema and Tearoom references",
+      "thesis": "The zine on warm kraft stock with mustard, sky and lime cards and tomato-red ink.",
+      "palette": ["#ddcca9", "#e9b545", "#a8c9d6", "#c9d68a", "#c8462e", "#3f2924"],
+      "materials": ["kraft paper with fiber grain", "sticker-sheet card frames", "hand-lettered caps"],
+      "viewport": "Same composition on kraft; the most sticker-sheet and handmade-feeling of the three.",
+      "risk": "Warmest and most vintage; closest to the beige look you didn't want if the color cards get small.",
+      "html": ".impeccable/mocks/decision/zine-kraft.html"
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code" },
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "The category standard",
+    "thesis": "A clean study dashboard at the craft level of Duolingo, Brilliant and Notion.",
+    "palette": ["#ffffff", "#1f2937", "#6d5bd0"],
+    "materials": ["clean card grid", "stat tiles"],
+    "viewport": "Greeting, streak tile, today's problem card, timer card, calendar card.",
+    "risk": "Looks like every other study app: the template feel you asked to avoid."
+  },
+  "steer": true
+}

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import { RisoArt } from "@/components/RisoArt";
 import Link from "next/link";
 import RuntimeGym from "@/components/RuntimeGym";
-import { Tofu } from "@/components/characters";
 import { GYM } from "@/content/runtime-gym";
 
 export const metadata: Metadata = { title: "⏱ Runtime Gym", description: "Look at code, name its Big-O. Short reps until you can see runtime at a glance." };
@@ -10,8 +10,7 @@ export default function RuntimePage() {
   return (
     <div className="wrap" style={{ padding: "40px 0 80px" }}>
       <div className="center" style={{ marginBottom: 20 }}>
-        <Tofu size={90} className="bob" />
-        <span className="eyebrow">reps, not lectures</span>
+        <RisoArt tags={["train", "travel"]} seed="runtime" ink="cherry" className="page-print" credit={false} />
         <h1 style={{ margin: 0 }}>⏱ Runtime Gym</h1>
         <p className="muted" style={{ maxWidth: 620, margin: "8px auto 0" }}>
           Look at the code, pick the Big-O. The secret is always the same question: <b>how many times does the innermost line run?</b> Press 1–4 to answer, Enter for next.

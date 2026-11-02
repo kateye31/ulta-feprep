@@ -1,0 +1,247 @@
+{
+  "title": "Choose the visual world for FE Café",
+  "question": "The roll assigned the Risograph Study Zine. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "label": "Risograph Study Zine",
+      "kicker": "THE ROLL",
+      "lineage": "DIY riso-printed zines and student planners",
+      "thesis": "Every study day is a fresh hand-printed zine page, in spot inks that overprint into new colors.",
+      "palette": [
+        "#ff48b0",
+        "#3255a4",
+        "#ffe800",
+        "#765ba7",
+        "#f1efe9"
+      ],
+      "materials": [
+        "riso spot inks with misregistration",
+        "halftone public-domain engravings",
+        "planner grid paper and date stamps"
+      ],
+      "viewport": "A planner spread: huge overprinted date and exam countdown on the left, today's one problem printed big on the right, with a riso-printed engraving and one obvious Start button.",
+      "risk": "Can tip into a design-student poster if the inks are timid or the type is too clever to read.",
+      "raised": [
+        {
+          "from": "challenger-ikebana",
+          "raise": "One charged focal point per viewport: today's problem sits alone with real empty paper around it."
+        },
+        {
+          "from": "challenger-miura",
+          "raise": "The day arrives folded: one pull opens the packet into the whole spread."
+        },
+        {
+          "from": "challenger-depot",
+          "raise": "Hard ink limit: each page prints in three inks at most, and rank comes from overprint, never extra colors."
+        },
+        {
+          "from": "challenger-darkroom",
+          "raise": "The Pomodoro runs as timed stations, each one printed as its own pass."
+        },
+        {
+          "from": "challenger-rubberhose",
+          "raise": "One motion grammar: every change registers in like a print pass, on a beat."
+        },
+        {
+          "from": "challenger-shareware",
+          "raise": "Today is linear: warm-up, problem, focus, log. The next step is always the obvious one."
+        }
+      ],
+      "html": ".impeccable/mocks/decision/assigned.html"
+    },
+    {
+      "id": "model-pick",
+      "kind": "pick",
+      "label": "Collectible Study Cards",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "illustrated trading cards and sticker binders",
+      "thesis": "Each day deals you a hand of collectible cards: MAIN problem, SIDE focus session, BONUS streak.",
+      "palette": [
+        "#f2c14e",
+        "#7cb7e8",
+        "#f3a6c8",
+        "#3d3a5c",
+        "#fbf3e4"
+      ],
+      "materials": [
+        "thick card stock with rounded frames",
+        "star ratings and point values",
+        "felt binder pages"
+      ],
+      "viewport": "Three big cards dealt across a colored felt table, today's MAIN card face-up and glowing.",
+      "risk": "Familiar: this is close to where most cozy study apps land, and it can feel like a game skin over a dashboard.",
+      "html": ".impeccable/mocks/decision/pick.html"
+    },
+    {
+      "id": "challenger-rubberhose",
+      "kind": "challenger",
+      "catalogId": "pop-culture-shelf-rubber-hose-cel",
+      "label": "Rubber-Hose Cartoon Cel",
+      "verdict": "declined",
+      "lineage": "1920s–30s rubber-hose animation",
+      "thesis": "Study scenes arrive through an iris, like gags in an old cartoon.",
+      "palette": [
+        "#111111",
+        "#f7f5ef",
+        "#9a9a94"
+      ],
+      "materials": [
+        "cel ink",
+        "gray wash"
+      ],
+      "viewport": "A round iris opening on today's problem in black-and-white cartoon ink.",
+      "risk": "Black, white and gray only: the opposite of the color you asked for.",
+      "case": "Fun characters, but it loses on color and on clarity for dense code.",
+      "kept": "One motion grammar on a beat.",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-rubber-hose-cel-hero.webp"
+    },
+    {
+      "id": "challenger-ikebana",
+      "kind": "challenger",
+      "catalogId": "growth-metamorphosis-branching-ikebana-ma-arrangement",
+      "label": "Ikebana Alcove",
+      "verdict": "declined",
+      "lineage": "tokonoma alcove arrangement",
+      "thesis": "One branch, charged emptiness: the day as a single calm arrangement.",
+      "palette": [
+        "#ece6da",
+        "#6e6253",
+        "#3f62b8",
+        "#4a4036"
+      ],
+      "materials": [
+        "plaster",
+        "pine",
+        "bronze"
+      ],
+      "viewport": "One problem off-center in a pale alcove.",
+      "risk": "Too quiet and too far from your world of characters and color.",
+      "case": "Great for focus, but you wouldn't recognize yourself in it.",
+      "kept": "One charged focal point per viewport.",
+      "hero": "https://impeccable.style/worlds/cards/growth-metamorphosis-branching-ikebana-ma-arrangement-hero.webp"
+    },
+    {
+      "id": "challenger-miura",
+      "kind": "challenger",
+      "catalogId": "paper-folds-pleats-deployable-miura-orbit-sheet",
+      "label": "Miura-Fold Sheet",
+      "verdict": "declined",
+      "lineage": "deployable aerospace folds",
+      "thesis": "A tiny packet that unfolds into the whole study plan.",
+      "palette": [
+        "#f6f6f2",
+        "#c9a227",
+        "#8b8b84",
+        "#9cc3e6"
+      ],
+      "materials": [
+        "scored paper",
+        "gold foil"
+      ],
+      "viewport": "A gold packet that opens into a creased field of tasks.",
+      "risk": "Clever engineering, cold mood.",
+      "case": "Strong reveal mechanic, weak warmth and identification.",
+      "kept": "The day arrives folded and opens in one pull.",
+      "hero": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-miura-orbit-sheet-hero.webp"
+    },
+    {
+      "id": "challenger-depot",
+      "kind": "challenger",
+      "catalogId": "operate-c-depot-blind-courses",
+      "label": "Depot Destination Blind",
+      "verdict": "declined",
+      "lineage": "bus-depot cloth destination blinds",
+      "thesis": "Status that steps one course at a time under a fixed window.",
+      "palette": [
+        "#1f5a3a",
+        "#f2c200",
+        "#eae3cf"
+      ],
+      "materials": [
+        "dyed duck cloth",
+        "chrome-yellow legends"
+      ],
+      "viewport": "A cloth roll stepping to today's task.",
+      "risk": "A monitoring wall, not a cozy study space.",
+      "case": "Disciplined, but built for watching systems, not learning.",
+      "kept": "A hard ink limit.",
+      "hero": "https://impeccable.style/worlds/cards/operate-c-depot-blind-courses-hero.webp"
+    },
+    {
+      "id": "challenger-darkroom",
+      "kind": "challenger",
+      "catalogId": "signals-instruments-darkroom-safelight-bay",
+      "label": "Darkroom Safelight",
+      "verdict": "declined",
+      "lineage": "photo printing darkroom",
+      "thesis": "Answers develop slowly under amber light.",
+      "palette": [
+        "#b8541a",
+        "#2a2422",
+        "#d9d4cc"
+      ],
+      "materials": [
+        "safelight amber",
+        "silver prints"
+      ],
+      "viewport": "A developing tray where the answer emerges.",
+      "risk": "Dark and moody, which you said feels wrong.",
+      "case": "Good timed ritual, wrong light.",
+      "kept": "Pomodoro as timed stations.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-darkroom-safelight-bay-hero.webp"
+    },
+    {
+      "id": "challenger-shareware",
+      "kind": "challenger",
+      "catalogId": "digital-design-canon-shareware-installer-screens",
+      "label": "Shareware Installer",
+      "verdict": "declined",
+      "lineage": "1990s install wizards",
+      "thesis": "Your study day as a Next > Next > Finish wizard.",
+      "palette": [
+        "#c0c0c0",
+        "#000080",
+        "#ffffff",
+        "#008080"
+      ],
+      "materials": [
+        "beveled gray chrome",
+        "dithered banner"
+      ],
+      "viewport": "A gray dialog with a pixel banner and a progress bar.",
+      "risk": "Nostalgia joke, gray everywhere.",
+      "case": "Clear linear steps, little warmth.",
+      "kept": "A linear day with an obvious next step.",
+      "hero": "https://impeccable.style/worlds/cards/digital-design-canon-shareware-installer-screens-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": [
+      "safer",
+      "bolder"
+    ]
+  },
+  "buildPath": {
+    "value": "code"
+  },
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "The category standard",
+    "thesis": "A clean study dashboard, done impeccably.",
+    "palette": [
+      "#ffffff",
+      "#1f2937",
+      "#6d5bd0"
+    ],
+    "materials": [
+      "clean card grid",
+      "stat tiles"
+    ],
+    "viewport": "Greeting, streak tile, today's problem card, timer card, calendar card.",
+    "risk": "Looks like every other study app, which is the template feel you asked to avoid."
+  },
+  "steer": true
+}

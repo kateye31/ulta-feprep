@@ -8,3 +8,6 @@ next-env.d.ts
 
 # your personal save file (synced by OneDrive, kept out of git)
 data/
+
+# design references (other artists' work: inspiration only, never shipped)
+references/

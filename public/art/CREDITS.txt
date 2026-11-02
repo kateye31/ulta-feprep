@@ -1,0 +1,4 @@
+Hand-drawn art in this folder:
+- doodle-*.svg  Open Doodles by Pablo Stanley (opendoodles.com), CC0 (public domain).
+- peep-*.svg    Open Peeps by Pablo Stanley (openpeeps.com), CC0, assembled with DiceBear's open-peeps style.
+Colors were swapped so the lines follow the page's text color (currentColor) and the purple accent.

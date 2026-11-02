@@ -1,0 +1,101 @@
+{
+  "title": "Riso Card Zine, now with deep red",
+  "question": "Same combo, deep cherry red added three ways. The one you pick becomes Today; the others become paper stock for other sections.",
+  "options": [
+    {
+      "id": "cherry-teal",
+      "kind": "grounded",
+      "label": "Cherry on Teal",
+      "lineage": "sleepy.tofu cards + the Little Cinema reds",
+      "thesis": "Mint-teal stock, sunflower/pink/sky cards, and deep cherry for the date shadow, countdown and the Solve button.",
+      "palette": [
+        "#a9d3c9",
+        "#9e1f24",
+        "#f9d36f",
+        "#f4b9c8",
+        "#9cc0e8",
+        "#3a1e22"
+      ],
+      "materials": [
+        "mint stock with print grain",
+        "oxblood-brown ink",
+        "hand-lettered caps"
+      ],
+      "viewport": "Hand-lettered date with a cherry misprint shadow, stamped month, MAIN card on top of a fanned hand, one deep-red Solve button.",
+      "risk": "Red is the accent, not the star: it does the important jobs but covers little of the page.",
+      "html": ".impeccable/mocks/decision/cherry-teal.html"
+    },
+    {
+      "id": "cherry-stock",
+      "kind": "grounded",
+      "label": "Cherry Stock",
+      "lineage": "the Tearoom of Terror poster red, printed as the whole sheet",
+      "thesis": "The zine printed on deep cherry paper: cream hand-lettering, sunflower MAIN card, pink and mint cards, sunflower Solve button.",
+      "palette": [
+        "#8e1d22",
+        "#fdf3dc",
+        "#f9d36f",
+        "#f4b9c8",
+        "#a9d3c9",
+        "#2a1012"
+      ],
+      "materials": [
+        "deep cherry stock with grain",
+        "cream ink lettering",
+        "bright card stock"
+      ],
+      "viewport": "Cream date on cherry, cards glowing against the red, sunflower Solve button.",
+      "risk": "The boldest: gorgeous for Today, but long reading pages need a lighter stock.",
+      "html": ".impeccable/mocks/decision/cherry-stock.html"
+    },
+    {
+      "id": "cherry-cornflower",
+      "kind": "grounded",
+      "label": "Cherry on Cornflower",
+      "lineage": "your blue-sweater cat and portfolio sky, plus red",
+      "thesis": "Cornflower stock with cream cards and deep cherry plus tangerine: a classic blue-and-red pairing.",
+      "palette": [
+        "#79a6e0",
+        "#9e1f24",
+        "#fdf3dc",
+        "#f3a35a",
+        "#2b1a24"
+      ],
+      "materials": [
+        "cornflower stock with crayon grain",
+        "cream card stock",
+        "hand-lettered caps"
+      ],
+      "viewport": "Cream MAIN card with a cherry picture panel, cherry bonus card, tangerine side card.",
+      "risk": "Blue plus red can look like a flag if the cream and tangerine get squeezed out.",
+      "html": ".impeccable/mocks/decision/cherry-cornflower.html"
+    }
+  ],
+  "reroll": {
+    "registers": [
+      "safer",
+      "bolder"
+    ]
+  },
+  "buildPath": {
+    "value": "code"
+  },
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "The category standard",
+    "thesis": "A clean study dashboard at the craft level of Duolingo, Brilliant and Notion.",
+    "palette": [
+      "#ffffff",
+      "#1f2937",
+      "#6d5bd0"
+    ],
+    "materials": [
+      "clean card grid",
+      "stat tiles"
+    ],
+    "viewport": "Greeting, streak tile, today's problem card, timer card, calendar card.",
+    "risk": "Looks like every other study app: the template feel you asked to avoid."
+  },
+  "steer": true
+}

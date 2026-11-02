@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=1440">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Gluten:wght@600;800&family=Patrick+Hand+SC&family=Atkinson+Hyperlegible+Next:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--g:#a9d3c9;--ink:#3a2630;--c1:#f9d36f;--c2:#f4b9c8;--c3:#9cc0e8;--paper:#fdf3dc;--pop:#de5135;--leaf:#5f9e3d}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;background:var(--g);color:var(--ink);font-family:"Atkinson Hyperlegible Next",sans-serif;
+ background-image:radial-gradient(rgba(58,38,48,.09) 1px,transparent 1.3px),radial-gradient(rgba(255,255,255,.18) 1px,transparent 1.3px);background-size:5px 5px,7px 7px;background-position:0 0,3px 2px}
+.mast{display:flex;align-items:center;gap:26px;padding:24px 56px}
+.logo{font-family:Gluten;font-weight:800;font-size:34px}
+.mast nav{margin-left:auto;display:flex;gap:10px}
+.mast nav span{font-family:"Patrick Hand SC";font-size:22px;padding:6px 16px;border:2.5px solid var(--ink);border-radius:999px;background:var(--paper)}
+.mast nav span.on{background:var(--ink);color:var(--paper)}
+main{display:grid;grid-template-columns:520px 1fr;gap:40px;padding:10px 56px}
+.date{font-family:Gluten;font-weight:800;font-size:150px;line-height:.85;letter-spacing:-.02em;position:relative}
+.date .shadow{position:absolute;left:6px;top:6px;color:var(--pop);opacity:.85;z-index:0}
+.date .front{position:relative;z-index:1}
+.count{margin-top:22px;display:inline-flex;gap:14px;align-items:baseline;background:var(--paper);border:3px solid var(--ink);border-radius:18px;padding:12px 20px;transform:rotate(-2deg);box-shadow:5px 6px 0 var(--ink)}
+.count b{font-family:Gluten;font-size:58px;color:var(--pop)}
+.count span{font-family:"Patrick Hand SC";font-size:26px}
+.month{margin-top:30px;display:grid;grid-template-columns:repeat(7,52px);gap:8px}
+.month i{display:block;height:46px;border-radius:12px;background:var(--paper);border:2.5px solid var(--ink);position:relative}
+.month i.on::after{content:"★";position:absolute;inset:0;display:grid;place-items:center;color:var(--leaf);font-size:24px}
+.month i.today{background:var(--c1);box-shadow:3px 3px 0 var(--ink)}
+.hand{position:relative;height:740px}
+.card{position:absolute;border:3.5px solid var(--ink);border-radius:28px;padding:22px;box-shadow:8px 10px 0 rgba(0,0,0,.18)}
+.card .top{display:flex;justify-content:space-between;font-family:Gluten;font-weight:800;font-size:44px}
+.card .pic{margin:14px 0;border-radius:16px;background:var(--paper);border:3px solid var(--ink);height:250px;position:relative;overflow:hidden}
+.card .pic::after{content:"";position:absolute;inset:30px 60px;border-radius:50%;background:var(--c2);mix-blend-mode:multiply}
+.card .bar{font-family:"Patrick Hand SC";font-size:30px;background:var(--ink);color:var(--paper);border-radius:999px;padding:6px 18px;display:inline-block}
+.card .txt{margin-top:14px;font-size:22px;line-height:1.35;background:var(--paper);border-radius:14px;padding:14px 16px}
+.main{left:120px;top:10px;width:450px;background:var(--c1);transform:rotate(-2deg);z-index:3}
+.side{left:470px;top:70px;width:290px;background:var(--c3);transform:rotate(5deg);z-index:2}
+.side .pic{height:150px}
+.bonus{left:0px;top:150px;width:250px;background:var(--c2);transform:rotate(-9deg);z-index:1}
+.bonus .pic{height:130px}
+.go{position:absolute;left:150px;bottom:60px;z-index:4;font-family:Gluten;font-weight:800;font-size:38px;background:var(--pop);color:var(--paper);border:3.5px solid var(--ink);border-radius:999px;padding:14px 40px;box-shadow:5px 6px 0 var(--ink)}
+</style></head><body>
+<header class="mast"><span class="logo">FE Café</span><nav><span class="on">Today</span><span>Topics</span><span>Night Shift</span><span>Studio</span><span>Calendar</span></nav></header>
+<main>
+<section><div class="date"><span class="shadow">Oct 30</span><span class="front">Oct 30</span></div>
+<div class="count"><b>79</b><span>days to the January FE</span></div>
+<div class="month"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="today"></i><i></i><i></i><i></i></div></section>
+<section class="hand">
+<div class="card bonus"><div class="top"><span>BONUS</span><span>6🔥</span></div><div class="pic"></div><div class="bar">STREAK</div></div>
+<div class="card side"><div class="top"><span>SIDE</span><span>+50</span></div><div class="pic"></div><div class="bar">25 MIN FOCUS</div></div>
+<div class="card main"><div class="top"><span>MAIN</span><span>+100</span></div><div class="pic"></div><div class="bar">HEAPS ★★☆</div><div class="txt">Where does 42 sink to after percolateDown(1)?</div></div>
+<span class="go">Solve it ▸</span>
+</section></main></body></html>

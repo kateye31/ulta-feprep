@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import { RisoArt } from "@/components/RisoArt";
 import PrintButton from "@/components/PrintButton";
-import { Tofu } from "@/components/characters";
 
 export const metadata: Metadata = { title: "🧾 Cheat Sheet", description: "Every formula and rule for the Foundation Exam on recipe cards." };
 
@@ -19,9 +19,8 @@ export default function CheatSheet() {
   return (
     <div className="wrap" style={{ padding: "40px 0 80px" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap", marginBottom: 28 }}>
-        <Tofu size={90} className="bob" />
+        <RisoArt tags={["owl", "books"]} seed="cheatsheet" ink="cherry" className="page-print" credit={false} />
         <div style={{ flex: 1, minWidth: 240 }}>
-          <span className="eyebrow">Tofu&apos;s recipe box</span>
           <h1 style={{ margin: 0 }}>🧾 The Cheat Sheet</h1>
           <p className="muted" style={{ margin: 0 }}>Every formula and rule on one page. Great for a 10-minute review before bed or exam morning.</p>
         </div>

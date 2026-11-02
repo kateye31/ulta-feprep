@@ -1,16 +1,17 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
-import { Baloo_2, Gaegu, JetBrains_Mono, Lexend } from "next/font/google";
+import { Atkinson_Hyperlegible_Next, Gaegu, Gluten, JetBrains_Mono, Patrick_Hand_SC } from "next/font/google";
 import Nav from "@/components/Nav";
-import CozyDock from "@/components/CozyDock";
-import Leaves from "@/components/Leaves";
+import { RisoFilters } from "@/components/RisoArt";
 import SmoothScroll from "@/components/SmoothScroll";
 import { EXAMS_URL, FEPREP_URL, MATERIAL_URL } from "@/lib/sections";
 import "./globals.css";
 
-/* Baloo 2 = bubbly headings · Lexend = body text designed for easier reading · Gaegu = handwritten notes */
-const baloo = Baloo_2({ subsets: ["latin"], variable: "--f-baloo", weight: ["500", "600", "700", "800"] });
-const lexend = Lexend({ subsets: ["latin"], variable: "--f-lexend", weight: ["300", "400", "500", "600", "700"] });
+/* Gluten = chunky hand-lettered display · Patrick Hand SC = rounded hand caps for labels ·
+   Atkinson Hyperlegible Next = body text built for easy reading · Gaegu = speech bubbles */
+const gluten = Gluten({ subsets: ["latin"], variable: "--f-gluten", weight: ["600", "700", "800"] });
+const patrick = Patrick_Hand_SC({ subsets: ["latin"], variable: "--f-patrick", weight: "400" });
+const atkinson = Atkinson_Hyperlegible_Next({ subsets: ["latin"], variable: "--f-atkinson", weight: ["400", "700"] });
 const gaegu = Gaegu({ subsets: ["latin"], variable: "--f-gaegu", weight: ["400", "700"] });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--f-mono", weight: ["400", "700"] });
 
@@ -22,24 +23,21 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f1fc" },
-    { media: "(prefers-color-scheme: dark)", color: "#1b1426" },
-  ],
+  themeColor: "#79a6e0",
 };
 
 /* Runs before paint so there's no flash of the wrong theme. */
-const themeScript = `(function(){try{var t=localStorage.getItem('fe-cafe-theme');if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='light'}})();`;
+const themeScript = `document.documentElement.dataset.theme='light';`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${baloo.variable} ${lexend.variable} ${gaegu.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${gluten.variable} ${patrick.variable} ${atkinson.variable} ${gaegu.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
         <SmoothScroll />
-        <Leaves />
+        <RisoFilters />
         <Nav />
         <main style={{ position: "relative", zIndex: 2 }}>{children}</main>
         <footer className="footer">
@@ -57,7 +55,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </footer>
-        <CozyDock />
       </body>
     </html>
   );

@@ -1,0 +1,437 @@
+[
+  {
+    "file": "winter-cat.jpg",
+    "title": "Winter: Cat on a Cushion",
+    "artist": "Théophile-Alexandre Steinlen",
+    "date": "1909",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/51719",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "cat",
+      "winter",
+      "interior"
+    ],
+    "mood": "sleepy winter comfort"
+  },
+  {
+    "file": "summer-cat.jpg",
+    "title": "Summer: Cat on a Balustrade",
+    "artist": "Théophile-Alexandre Steinlen",
+    "date": "1909",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/51724",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "cat",
+      "summer",
+      "window"
+    ],
+    "mood": "sunny afternoon companion"
+  },
+  {
+    "file": "cat-goldfish.jpg",
+    "title": "Cat Pawing at Goldfish",
+    "artist": "Isoda Koryusai",
+    "date": "c. early 1770s",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/21177",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "cat",
+      "goldfish",
+      "playful"
+    ],
+    "mood": "curious mischief"
+  },
+  {
+    "file": "owl-pine.jpg",
+    "title": "Owl on pine branch",
+    "artist": "Utagawa Hiroshige 歌川 広重",
+    "date": "1830s",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/47662",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "owl",
+      "pine",
+      "bird"
+    ],
+    "mood": "watchful woodland charm"
+  },
+  {
+    "file": "morning-glories-frog.jpg",
+    "title": "Morning Glories and Tree-frog, from an untitled series of Large Flowers",
+    "artist": "Katsushika Hokusai 葛飾 北斎",
+    "date": "c. 1833/34",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/25099",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "frog",
+      "flowers",
+      "garden"
+    ],
+    "mood": "tiny garden surprise"
+  },
+  {
+    "file": "afternoon-tea.jpg",
+    "title": "Afternoon Tea Party",
+    "artist": "Mary Cassatt (American, 1844-1926)",
+    "date": "1890–91",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/13520",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "tea",
+      "friends",
+      "interior"
+    ],
+    "mood": "soft afternoon gathering"
+  },
+  {
+    "file": "two-readers.jpg",
+    "title": "Two Young Women Reading Books",
+    "artist": "Suzuki Harunobu 鈴木 春信",
+    "date": "c. 1767/68",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/20958",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "books",
+      "reading",
+      "friends"
+    ],
+    "mood": "shared reading hour"
+  },
+  {
+    "file": "chrysanthemums-moon.jpg",
+    "title": "Chrysanthemums and the Rising Moon",
+    "artist": "Attributed to Suzuki Harunobu 鈴木 春信",
+    "date": "c. 1766",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/20823",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "moon",
+      "flowers",
+      "night"
+    ],
+    "mood": "gentle moonrise"
+  },
+  {
+    "file": "cuckoo-moon.jpg",
+    "title": "A Cuckoo Against the Moon",
+    "artist": "Utagawa Hiroshige 歌川 広重",
+    "date": "c. 1843/46",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/22820",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "moon",
+      "bird",
+      "night"
+    ],
+    "mood": "birdsong after dark"
+  },
+  {
+    "file": "lantern-shop.jpg",
+    "title": "The Lantern Shop",
+    "artist": "Attributed to Suzuki Harunobu 鈴木 春信",
+    "date": "c. 1765",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/21971",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "lantern",
+      "shop",
+      "people"
+    ],
+    "mood": "lantern-lit errand"
+  },
+  {
+    "file": "girls-rain.jpg",
+    "title": "Two Young Girls in a Rain Shower",
+    "artist": "Mitsunobu",
+    "date": "c. 1764/72",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/21122",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "rain",
+      "children",
+      "playful"
+    ],
+    "mood": "dash through a shower"
+  },
+  {
+    "file": "poets-garden.jpg",
+    "title": "The Poet's Garden",
+    "artist": "Vincent van Gogh (Dutch, 1853–1890)",
+    "date": "1888",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/14586",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "garden",
+      "flowers",
+      "color"
+    ],
+    "mood": "sunlit garden paths"
+  },
+  {
+    "file": "iris-garden.jpg",
+    "title": "Iris Garden",
+    "artist": "Katsukawa Shuncho",
+    "date": "c. 1781/89",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/21746",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "garden",
+      "iris",
+      "people"
+    ],
+    "mood": "garden daydream"
+  },
+  {
+    "file": "redon-flowers.jpg",
+    "title": "Still Life with Flowers",
+    "artist": "Odilon Redon (French, 1840–1916)",
+    "date": "1905",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/110982",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "flowers",
+      "still-life",
+      "color"
+    ],
+    "mood": "bouquet glow"
+  },
+  {
+    "file": "magnolias-blue.jpg",
+    "title": "Magnolias on Light Blue Velvet Cloth",
+    "artist": "Martin Johnson Heade (American, 1819–1904)",
+    "date": "1885–95",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/100829",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "magnolia",
+      "flowers",
+      "blue"
+    ],
+    "mood": "velvety floral calm"
+  },
+  {
+    "file": "steam-train.jpg",
+    "title": "American Steam Train Travel",
+    "artist": "Utagawa Yoshikazu",
+    "date": "n.d.",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/72848",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "train",
+      "travel",
+      "playful"
+    ],
+    "mood": "storybook journey"
+  },
+  {
+    "file": "dancing-fox.jpg",
+    "title": "The Dancing Fox",
+    "artist": "Artist unknown",
+    "date": "1766",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/36297",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "fox",
+      "animal",
+      "playful"
+    ],
+    "mood": "whimsical fox dance"
+  },
+  {
+    "file": "butterflies.jpg",
+    "title": "Butterflies",
+    "artist": "Helen Hyde",
+    "date": "1908",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/77629",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "butterfly",
+      "flowers",
+      "spring"
+    ],
+    "mood": "fluttering spring color"
+  },
+  {
+    "file": "goldfish-utamaro.jpg",
+    "title": "Goldfish",
+    "artist": "Kitagawa Utamaro 喜多川 歌麿",
+    "date": "c. 1794/95",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/89385",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "goldfish",
+      "fish",
+      "water"
+    ],
+    "mood": "tiny aquarium wonder"
+  },
+  {
+    "file": "wisteria-goldfish.jpg",
+    "title": "Wisteria and Goldfish 紫藤金魚圖",
+    "artist": "Xugu 虚谷 (Chinese, 1824-1896)",
+    "date": "Qing dynasty (1644–1911), mid/late 19th century",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/46472",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "goldfish",
+      "wisteria",
+      "flowers"
+    ],
+    "mood": "floating floral delight"
+  },
+  {
+    "file": "hydrangea-swallow.jpg",
+    "title": "Hydrangea and Swallow, from an untitled series of large flowers",
+    "artist": "Katsushika Hokusai 葛飾 北斎",
+    "date": "c. 1833/34",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/25117",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "swallow",
+      "hydrangea",
+      "flowers"
+    ],
+    "mood": "breezy summer flight"
+  },
+  {
+    "file": "cranes-sunrise.jpg",
+    "title": "Cranes in an Iris Pond at Sunrise",
+    "artist": "Attributed to Isoda Koryusai",
+    "date": "c. 1774",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/21202",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "cranes",
+      "bird",
+      "sunrise"
+    ],
+    "mood": "golden pond morning"
+  },
+  {
+    "file": "red-parrot.jpg",
+    "title": "Red Parrot on the Branch of a Tree",
+    "artist": "Ito Jakuchu",
+    "date": "c. 1905",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/197424",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "parrot",
+      "bird",
+      "red"
+    ],
+    "mood": "cherry-red companion"
+  },
+  {
+    "file": "bedroom-van-gogh.jpg",
+    "title": "The Bedroom",
+    "artist": "Vincent van Gogh (Dutch, 1853–1890)",
+    "date": "1889",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/28560",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "interior",
+      "bedroom",
+      "color"
+    ],
+    "mood": "warm room retreat"
+  },
+  {
+    "file": "paddy-bird-magnolia.jpg",
+    "title": "Paddy Bird and Magnolia Flowers (Buncho, kobushi no hana), from an untitled series of flowers and birds",
+    "artist": "Katsushika Hokusai 葛飾 北斎",
+    "date": "c. 1834",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/25088",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "bird",
+      "magnolia",
+      "flowers"
+    ],
+    "mood": "feathery spring bloom"
+  },
+  {
+    "file": "owl-crescent.jpg",
+    "title": "Small-horned owl, pine, and crescent moon",
+    "artist": "Utagawa Hiroshige 歌川 広重",
+    "date": "1830s",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/47526",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "owl",
+      "moon",
+      "pine"
+    ],
+    "mood": "quiet moonlit perch"
+  },
+  {
+    "file": "cherry-blossom-rain.jpg",
+    "title": "Cherry Blossom Rain",
+    "artist": "Helen Hyde",
+    "date": "1905",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/77601",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "rain",
+      "cherry-blossom",
+      "people"
+    ],
+    "mood": "spring shower stroll"
+  },
+  {
+    "file": "sparrows-snow.jpg",
+    "title": "Sparrows and Camellia in Snow",
+    "artist": "Utagawa Hiroshige 歌川 広重",
+    "date": "c. 1831-33",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/11039",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "sparrows",
+      "bird",
+      "winter"
+    ],
+    "mood": "snowy garden bustle"
+  },
+  {
+    "file": "kingfisher-yellow.jpg",
+    "title": "Kingfisher above a Yellow-flowered Water Plant",
+    "artist": "Utagawa Hiroshige 歌川 広重",
+    "date": "1853, third month",
+    "museum": "Art Institute of Chicago",
+    "url": "https://www.artic.edu/artworks/95019",
+    "license": "Public domain (CC0) per Art Institute of Chicago",
+    "tags": [
+      "kingfisher",
+      "bird",
+      "flowers"
+    ],
+    "mood": "bright riverside perch"
+  }
+]

@@ -15,6 +15,10 @@ export const KEYS = {
   gymBest: "fe-cafe-gym-best",
   examDate: "fe-cafe-exam-date",
   theme: "fe-cafe-theme",
+  arcade: "fe-cafe-arcade-v1",
+  arcadeNotes: "fe-cafe-arcade-notes-v1",
+  arcadeChat: "fe-cafe-arcade-chat-v1",
+  studylog: "fe-cafe-studylog-v1",
 } as const;
 
 type Rec = { value: string; updated: number };
@@ -90,6 +94,35 @@ function mergeValue(key: string, local: string, lt: number, server: string, st: 
     }
     if (key === KEYS.stamps) return JSON.stringify(Array.from(new Set([...(a as string[]), ...(b as string[])])));
     if (key === KEYS.gymBest) return String(Math.max(+a || 0, +b || 0));
+    if (key === KEYS.arcadeNotes || key === KEYS.arcadeChat) {
+      // one entry per question; the most recently edited copy of each entry wins
+      const out: Record<string, { t?: number }> = { ...(older as Record<string, { t?: number }>) };
+      for (const [k, v] of Object.entries(newer as Record<string, { t?: number }>)) if (!out[k] || (v.t ?? 0) >= (out[k].t ?? 0)) out[k] = v;
+      return JSON.stringify(out);
+    }
+    if (key === KEYS.studylog) {
+      // one entry per calendar day; the newer copy of each day wins
+      type Day = { t?: number };
+      type Log = { days?: Record<string, Day>; [k: string]: unknown };
+      const N = newer as Log;
+      const O = older as Log;
+      const days: Record<string, Day> = { ...(O.days ?? {}) };
+      for (const [k, v] of Object.entries(N.days ?? {})) if (!days[k] || (v.t ?? 0) >= (days[k].t ?? 0)) days[k] = v;
+      return JSON.stringify({ ...O, ...N, days });
+    }
+    if (key === KEYS.arcade) {
+      type Rec = { done?: boolean; t?: number };
+      type Save = { steps?: Record<string, Rec>; owned?: string[]; [k: string]: unknown };
+      const N = newer as Save;
+      const O = older as Save;
+      const steps: Record<string, Rec> = { ...(O.steps ?? {}) };
+      // a finished step is never "un-finished" by an older copy
+      for (const [k, v] of Object.entries(N.steps ?? {})) {
+        const cur = steps[k];
+        if (!cur || (v.done && !cur.done) || (!!v.done === !!cur.done && (v.t ?? 0) >= (cur.t ?? 0))) steps[k] = v;
+      }
+      return JSON.stringify({ ...O, ...N, steps, owned: Array.from(new Set([...(O.owned ?? []), ...(N.owned ?? [])])) });
+    }
   } catch {
     /* not JSON: fall through to "newest wins" */
   }

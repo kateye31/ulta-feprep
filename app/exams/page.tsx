@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
+import { RisoArt } from "@/components/RisoArt";
 import Link from "next/link";
-import { Tofu } from "@/components/characters";
 import { Callout } from "@/components/ui";
 import { EXAMS_URL, FEPREP_URL, MATERIAL_URL } from "@/lib/sections";
 
 export const metadata: Metadata = { title: "📚 Past Exams", description: "Official past Foundation Exams, plus a cozy strategy for using them." };
 
-const RECENT = [
-  { date: "August 29, 2026", dir: "fall2026", code: "Aug26" },
-  { date: "May 16, 2026", dir: "sum2026", code: "May26" },
-  { date: "January 17, 2026", dir: "spr2026", code: "Jan26" },
+const RECENT: { date: string; dir: string; code: string; play?: string }[] = [
+  { date: "August 29, 2026", dir: "fall2026", code: "Aug26", play: "fall2026" },
+  { date: "May 16, 2026", dir: "sum2026", code: "May26", play: "summer2026" },
+  { date: "January 17, 2026", dir: "spr2026", code: "Jan26", play: "spring2026" },
   { date: "August 23, 2025", dir: "fall2025", code: "Aug25" },
   { date: "May 17, 2025", dir: "sum2025", code: "May25" },
   { date: "January 11, 2025", dir: "spr2025", code: "Jan25" },
@@ -21,9 +21,8 @@ export default function ExamsPage() {
   return (
     <div className="wrap" style={{ padding: "40px 0 80px" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap", marginBottom: 28 }}>
-        <Tofu size={96} className="bob" />
+        <RisoArt tags={["books", "reading", "owl"]} seed="exams" ink="cherry" className="page-print" credit={false} />
         <div style={{ flex: 1, minWidth: 260 }}>
-          <span className="eyebrow">Tofu&apos;s library shelf</span>
           <h1 style={{ margin: 0 }}>📚 Past Exams</h1>
           <p className="muted" style={{ margin: 0 }}>The single best way to prepare is real past exams. Here&apos;s the most recent shelf, plus how to use them without burning out.</p>
         </div>
@@ -37,6 +36,7 @@ export default function ExamsPage() {
               <a className="btn small" href={`${EXAMS_URL}${e.dir}/FE-${e.code}.pdf`} target="_blank" rel="noreferrer">📝 Questions</a>
               <a className="btn small secondary" href={`${EXAMS_URL}${e.dir}/FE-${e.code}-Sol.pdf`} target="_blank" rel="noreferrer">✅ Solutions</a>
               <a className="btn small secondary" href={`${EXAMS_URL}${e.dir}/Info-${e.code}.pdf`} target="_blank" rel="noreferrer">ℹ️ Info</a>
+              {e.play && <Link className="btn small" href={`/arcade/${e.play}`}>🌙 Play it</Link>}
             </div>
           </div>
         ))}

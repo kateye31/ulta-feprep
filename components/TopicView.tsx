@@ -1,7 +1,11 @@
 import Link from "next/link";
 import type { Resource, Topic } from "@/lib/types";
 import { NOTES_BASE, SECTIONS } from "@/lib/sections";
-import { Character, MASCOT_NAMES } from "./characters";
+import { MASCOT_NAMES } from "./characters";
+import { GuhaNote } from "./GuhaNote";
+import { RisoArt } from "./RisoArt";
+import { TopicPractice } from "./TopicPractice";
+import { artTags } from "@/lib/potd/topics";
 import Code from "./Code";
 import Levels from "./Levels";
 import Quiz from "./Quiz";
@@ -39,6 +43,7 @@ export default function TopicView({ topic: t, prev, next }: { topic: Topic; prev
   const sec = SECTIONS[t.section];
   const toc = [
     { id: "tldr", label: "🍵 TL;DR" },
+    { id: "guha", label: "🎓 Guha's way" },
     { id: "picture", label: "🖼 Picture it" },
     { id: "levels", label: "🪜 Level up" },
     ...(t.widgets?.length ? [{ id: "play", label: "🎮 Play" }] : []),
@@ -48,6 +53,7 @@ export default function TopicView({ topic: t, prev, next }: { topic: Topic; prev
     { id: "traps", label: "🚨 Exam traps" },
     ...(t.example ? [{ id: "example", label: "📝 Worked problem" }] : []),
     { id: "quiz", label: "✅ Quick check" },
+    { id: "practice", label: "🃏 Practice cards" },
     { id: "deeper", label: "📚 Go deeper" },
   ];
   const groups = (Object.keys(KIND) as Resource["kind"][]).map((k) => ({ k, items: t.resources.filter((r) => r.kind === k) })).filter((g) => g.items.length);
@@ -73,11 +79,9 @@ export default function TopicView({ topic: t, prev, next }: { topic: Topic; prev
                 <StampButton slug={t.slug} />
               </div>
             </div>
-            <div style={{ display: "flex", alignItems: "flex-end", gap: 12, maxWidth: 380 }}>
-              <div style={{ flexShrink: 0 }}>
-                <Character name={t.mascot} size={110} className="bob" />
-              </div>
-              <div className="bubble" style={{ marginBottom: 24 }}>
+            <div className="topic-hero-art">
+              <RisoArt tags={artTags(t.slug)} seed={t.slug} ink="cherry" className="topic-print" />
+              <div className="bubble">
                 <span className="muted" style={{ fontSize: "0.8rem", display: "block" }}>{MASCOT_NAMES[t.mascot]} says:</span>
                 {t.tagline}
               </div>
@@ -94,6 +98,10 @@ export default function TopicView({ topic: t, prev, next }: { topic: Topic; prev
                   <li key={i}>{x}</li>
                 ))}
               </ol>
+            </Sec>
+
+            <Sec id="guha" icon="🎓" title="The way Guha teaches it" sub="Arup Guha's COP 3502 material, explained here in plain words." bg="butter">
+              <GuhaNote topic={t.slug} />
             </Sec>
 
             <Sec id="picture" icon="🖼" title="Picture it" sub="Before the code, a picture from real life." bg="sky">
@@ -190,6 +198,10 @@ export default function TopicView({ topic: t, prev, next }: { topic: Topic; prev
 
             <Sec id="quiz" icon="✅" title="Quick check" sub="No grades. Just vibes (and learning)." bg="matcha">
               <Quiz items={t.quiz} />
+            </Sec>
+
+            <Sec id="practice" icon="🃏" title="Practice cards" sub="Small exam-style problems on this topic. Answer, then read the walkthrough." bg="blush">
+              <TopicPractice topic={t.slug} />
             </Sec>
 
             <Sec id="deeper" icon="📚" title="Go deeper" sub="Hand-picked extra help: another voice, another picture." bg="accent">

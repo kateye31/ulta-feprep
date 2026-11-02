@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import { RisoArt } from "@/components/RisoArt";
 import Link from "next/link";
-import { Mochi } from "@/components/characters";
 import { Callout } from "@/components/ui";
 import { ExamCountdown, ReadChecklist } from "@/components/PlanWidgets";
 import { GUHA_OFFICE_HOURS, LAST_EXAM, PROFESSOR_NOTES, READ_CHECKLIST } from "@/content/me";
@@ -72,9 +72,8 @@ export default function PlanPage() {
   return (
     <div className="wrap" style={{ padding: "40px 0 80px" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap", marginBottom: 26 }}>
-        <Mochi size={100} className="bob" />
+        <RisoArt tags={["cat", "interior"]} seed="plan" ink="cherry" className="page-print" credit={false} />
         <div style={{ flex: 1, minWidth: 260 }}>
-          <span className="eyebrow">made just for you</span>
           <h1 style={{ margin: 0 }}>🧭 My Plan</h1>
           <p className="muted" style={{ margin: 0 }}>
             Built from your {LAST_EXAM.name} and your professor&apos;s notes. One exam doesn&apos;t define you. It&apos;s a map of exactly where the points are hiding. 🧭💜
