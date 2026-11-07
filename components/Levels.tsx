@@ -2,8 +2,8 @@
 
 import { useState, type ReactNode } from "react";
 
-const ICONS = ["🌱", "🌿", "🌳", "🌸"];
-const NAMES = ["Sprout", "Sapling", "Tree", "Bloom"];
+const ICONS = ["🌱", "🌿", "🌳", "🌸", "🍎"];
+const NAMES = ["Sprout", "Sapling", "Tree", "Bloom", "Fruit"];
 
 export default function Levels({ levels }: { levels: { title: string; body: ReactNode }[] }) {
   const [i, setI] = useState(0);

@@ -1031,6 +1031,7 @@ const D2: Question = {
   category: "ALG",
   topic: "Sorting",
   title: "Counting Insertion Sort swaps",
+  recipe: "sort-swaps",
   story:
     "A **swap** here means the values at two different array indexes are exchanged.\n\n**(a) (2 pts)** How many swaps does Insertion Sort perform on the array in your inventory?\n\n**(b) (2 pts)** Give an example array (8 values) for which that answer is as large as possible.\n\n**(c) (1 pt)** How many swaps would Insertion Sort take on your array from (b)?",
   given: [{ id: "d2-array", title: "The array for part (a)", kind: "table", table: { head: ["index", "0", "1", "2", "3", "4", "5", "6", "7"], rows: [["value", "12", "3", "7", "5", "15", "10", "19", "9"]] } }],

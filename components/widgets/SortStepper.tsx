@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import TreeSvg, { type TEdge, type TNode } from "./TreeSvg";
 
-type Frame = { a: number[]; cmp?: number[]; swap?: boolean; sorted?: number[]; pivot?: number; range?: [number, number]; msg: string; pass?: boolean };
-type Algo = "bubble" | "selection" | "insertion" | "merge" | "quick";
+type Frame = { a: number[]; cmp?: number[]; swap?: boolean; sorted?: number[]; pivot?: number; range?: [number, number]; msg: string; pass?: boolean; out?: number[] };
+type Algo = "bubble" | "selection" | "insertion" | "merge" | "quick" | "heap";
 
 const range = (a: number, b: number) => Array.from({ length: Math.max(0, b - a) }, (_, i) => a + i);
 
@@ -111,13 +112,75 @@ function quick(src: number[]): Frame[] {
   return F;
 }
 
+/** The FE's version: build a min-heap, then removeMin n times into a new array. Indices are 1-based in the messages, like the heap recipe. */
+function heapSort(src: number[]): Frame[] {
+  const a = [...src];
+  const out: number[] = [];
+  const F: Frame[] = [];
+  const push = (f: Omit<Frame, "a" | "out">) => F.push({ ...f, a: [...a], out: [...out] });
+  const down = (start: number) => {
+    let i = start;
+    while (2 * i + 1 < a.length) {
+      let c = 2 * i + 1;
+      if (c + 1 < a.length && a[c + 1] < a[c]) c++;
+      if (a[c] >= a[i]) {
+        push({ cmp: [i, c], msg: `${a[i]} is ≤ its smaller kid (${a[c]}), so it stops here.` });
+        return;
+      }
+      push({ cmp: [i, c], msg: `${a[i]} is at index ${i + 1}. Its smaller kid is ${a[c]}, so swap them.` });
+      [a[i], a[c]] = [a[c], a[i]];
+      push({ cmp: [i, c], swap: true, msg: "Swapped. Keep percolating down." });
+      i = c;
+    }
+    push({ cmp: [i], msg: `${a[i]} has no kids left to check, so it stops here.` });
+  };
+
+  for (let i = Math.floor(a.length / 2) - 1; i >= 0; i--) {
+    push({ cmp: [i], msg: `Step 1, build the heap: fix ${a[i]} at index ${i + 1}. Work backward from the last parent (index n/2) to the root.` });
+    down(i);
+  }
+  push({ pass: true, msg: `✨ Heap built: [${a.join(", ")}]. The smallest (${a[0]}) is on top, but the rest isn't sorted yet. All of building is O(n).` });
+
+  for (let k = 1; a.length; k++) {
+    const top = a[0];
+    push({ cmp: [0], msg: `Step 2, removeMin: ${top} is on top, so it goes next in the result.` });
+    out.push(top);
+    const last = a.pop()!;
+    if (a.length) {
+      a[0] = last;
+      push({ cmp: [0], msg: `Move the last element (${last}) to the root to fill the hole.` });
+      down(0);
+    }
+    push({ pass: true, msg: a.length ? `✨ After removal ${k}: result = [${out.join(", ")}], heap = [${a.join(", ")}]. That one removal was O(lg n) at most.` : `🎉 Heap's empty and the result is sorted: [${out.join(", ")}]. Build O(n) + ${k} removals × O(lg n) = O(n lg n).` });
+  }
+  return F;
+}
+
 const ALGOS: Record<Algo, { name: string; fn: (a: number[]) => Frame[]; big: string }> = {
   bubble: { name: "🫧 Bubble", fn: bubble, big: "O(n²) always (unless you add an early-exit check)" },
   selection: { name: "🎯 Selection", fn: selection, big: "O(n²) always, even when already sorted" },
   insertion: { name: "🃏 Insertion", fn: insertion, big: "O(n²) worst, O(n) best (already sorted)" },
   merge: { name: "🍰 Merge", fn: merge, big: "O(n log n) always, but needs O(n) extra memory" },
   quick: { name: "⚡ Quick", fn: quick, big: "O(n log n) average, O(n²) worst (bad pivots)" },
+  heap: { name: "🍡 Heap", fn: heapSort, big: "O(n log n) always: build O(n), then n removals × O(lg n)" },
 };
+
+/** The heap array drawn as a tree. Spots keep their place as it shrinks, so you can watch the last one move up. */
+function HeapTree({ f, n }: { f: Frame; n: number }) {
+  const nodes: TNode[] = [];
+  const edges: TEdge[] = [];
+  const maxD = Math.floor(Math.log2(Math.max(1, n)));
+  // TreeSvg's canvas is at least 5 slots wide, so nudge smaller trees to the middle of it
+  const pad = Math.max(0, (5 - 2 ** maxD) / 2);
+  for (let i = 1; i <= f.a.length; i++) {
+    const d = Math.floor(Math.log2(i));
+    const span = 2 ** maxD / 2 ** d;
+    const on = f.cmp?.includes(i - 1);
+    nodes.push({ id: i, label: String(f.a[i - 1]), x: pad + (i - 2 ** d) * span + (span - 1) / 2, y: d, tone: on ? (f.swap ? "hl3" : "hl") : undefined, sub: `[${i}]` });
+    if (i > 1) edges.push({ from: Math.floor(i / 2), to: i });
+  }
+  return <TreeSvg nodes={nodes} edges={edges} slotW={62} empty="🍡 heap's empty" />;
+}
 
 const rand = () => Array.from({ length: 8 }, () => 1 + Math.floor(Math.random() * 30));
 
@@ -130,7 +193,9 @@ export default function SortStepper({ initial = "bubble" }: { initial?: Algo }) 
   const [custom, setCustom] = useState("");
   const all = useMemo(() => ALGOS[algo].fn(arr), [algo, arr]);
   const frames = passes ? all.filter((f) => f.pass) : all;
-  const f: Frame = i === 0 ? { a: arr, msg: "Starting array. Press Step ▶ or Play." } : frames[Math.min(i, frames.length) - 1];
+  const heap = algo === "heap";
+  const start = heap ? "Your array, drawn as a tree. It isn't a heap yet. Press Step ▶ or Play." : "Starting array. Press Step ▶ or Play.";
+  const f: Frame = i === 0 ? { a: arr, msg: start, out: [] } : frames[Math.min(i, frames.length) - 1];
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
@@ -164,6 +229,11 @@ export default function SortStepper({ initial = "bubble" }: { initial?: Algo }) 
           if (v.length > 1) { setArr(v); setI(0); setPlay(false); }
         }} aria-label="Custom array (press Enter)" />
       </div>
+      {heap && (
+        <div className="stage" style={{ marginBottom: 10 }}>
+          <HeapTree f={f} n={arr.length} />
+        </div>
+      )}
       <div className="stage" style={{ display: "flex", alignItems: "flex-end", gap: 6, height: 230, justifyContent: "center" }}>
         {f.a.map((v, k) => {
           const inRange = !f.range || (k >= f.range[0] && k <= f.range[1]);
@@ -174,15 +244,29 @@ export default function SortStepper({ initial = "bubble" }: { initial?: Algo }) 
           return (
             <div key={k} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4, opacity: inRange ? 1 : 0.3, transition: "opacity .3s", flex: "0 1 48px" }}>
               <div style={{ width: "100%", maxWidth: 48, height: 20 + (v / max) * 150, background: bg, border: "2.5px solid var(--ink)", borderRadius: "12px 12px 6px 6px", transition: "height .35s cubic-bezier(.3,1.3,.5,1), background .25s", display: "flex", alignItems: "flex-start", justifyContent: "center", paddingTop: 4, fontWeight: 900, fontFamily: "var(--font-mono)", fontSize: "0.85rem", color: bg === "var(--card)" ? "var(--ink)" : "#2c1d42" }}>{v}</div>
-              <span style={{ fontSize: "0.7rem", color: "var(--ink-faint)", fontWeight: 700 }}>{k}</span>
+              <span style={{ fontSize: "0.7rem", color: "var(--ink-faint)", fontWeight: 700 }}>{heap ? k + 1 : k}</span>
             </div>
           );
         })}
       </div>
+      {heap && (
+        <div style={{ marginTop: 10 }}>
+          <div style={{ fontWeight: 700, fontSize: "0.9rem", marginBottom: 4 }}>📤 Result array (what removeMin hands back)</div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6, minHeight: 40, alignItems: "center" }}>
+            {f.out?.length ? (
+              f.out.map((v, k) => (
+                <span key={k} className="chip" style={{ background: "var(--matcha)", color: "#2c1d42", fontFamily: "var(--font-mono)", fontWeight: 900 }}>{v}</span>
+              ))
+            ) : (
+              <span className="muted" style={{ fontSize: "0.9rem" }}>Nothing removed yet.</span>
+            )}
+          </div>
+        </div>
+      )}
       <div className="controls" style={{ fontSize: "0.8rem", gap: 12 }}>
         <span><span className="chip" style={{ background: "var(--butter)", color: "#2c1d42" }}>comparing</span></span>
         <span><span className="chip" style={{ background: "var(--blush)", color: "#2c1d42" }}>swapped</span></span>
-        <span><span className="chip" style={{ background: "var(--matcha)", color: "#2c1d42" }}>in final spot</span></span>
+        <span><span className="chip" style={{ background: "var(--matcha)", color: "#2c1d42" }}>{heap ? "in the result" : "in final spot"}</span></span>
         {algo === "quick" && <span><span className="chip" style={{ background: "var(--lavender)", color: "#2c1d42" }}>pivot</span></span>}
         <span className="muted">step {Math.min(i, frames.length)} / {frames.length}</span>
       </div>

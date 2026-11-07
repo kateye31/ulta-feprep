@@ -106,7 +106,7 @@ int deleteMin(Heap *h) {
       body: (
         <>
           <p><b>Building a heap from n items</b>: you <i>could</i> insert them one at a time (O(n log n)), but <b>heapify</b> is faster. Start at the last parent (index n/2), percolate down, and repeat back to the root. That&apos;s <b>O(n)</b> total, a surprising and classic result.</p>
-          <p><b>Heapsort</b>: build a heap, then call delete-min n times. You get the items in sorted order in O(n log n), with no extra array needed.</p>
+          <p><b>Heapsort</b>: build a heap, then call delete-min n times, saving each one in a new array. You get the items in sorted order in O(n log n). Watch it step by step in the <a href="/topics/sorting#play">Sorting Bake-Off</a> by picking 🍡 Heap.</p>
         </>
       ),
     },

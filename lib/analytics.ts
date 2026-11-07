@@ -57,17 +57,23 @@ export function analyze(exams: Exam[], recs: Record<string, StepRec>, dayCount =
           sections[sid].steps++;
           totals.steps++;
           if (t) t.steps++;
-          if (t && r) t.slips += (r.tries ?? 0) + (r.fills ?? 0) + wrongWords;
+          // a wrong box also counts as a failed check, so don't count the same mistake twice
+          if (t && r) t.slips += (s.kind === "slots" ? Math.max(r.tries ?? 0, wrongWords) : (r.tries ?? 0) + wrongWords) + (r.fills ?? 0);
+          const logSlip = (typed: string, want = "(nothing)") => {
+            const k = `${typed}\u0000${want}`;
+            const cur = slips.get(k) ?? { typed, want, n: 0 };
+            cur.n++;
+            slips.set(k, cur);
+          };
           if (s.kind === "type" && r?.miss) {
             const want = tokenize(s.answers[0]).filter((k) => !(s.loose && k.t === ","));
-            for (const [at, typed] of Object.entries(r.miss))
-              for (const w of typed) {
-                const k = `${w}\u0000${want[+at]?.t ?? "(end)"}`;
-                const cur = slips.get(k) ?? { typed: w, want: want[+at]?.t ?? "(nothing)", n: 0 };
-                cur.n++;
-                slips.set(k, cur);
-              }
+            for (const [at, typed] of Object.entries(r.miss)) for (const w of typed) logSlip(w, want[+at]?.t);
           }
+          if (s.kind === "slots" && r?.miss)
+            for (const [id, typed] of Object.entries(r.miss)) {
+              const answer = s.slots.find((x) => x.id === id)?.answer;
+              for (const w of typed) logSlip(w, Array.isArray(answer) ? answer[0] : answer);
+            }
           if (!r?.done) continue;
           qDone++;
           sections[sid].done++;

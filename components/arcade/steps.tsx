@@ -279,7 +279,13 @@ export function SlotsView({ step, rec, patch, finish, say }: StepProps<SlotsStep
       finish({ slots: vals, pts: fp });
       say(tries ? "All boxes right now. Nice recovery!" : "Every box right on the first check!", "proud");
     } else {
-      patch({ slots: vals, tries: tries + 1, pts: fp });
+      // remember each wrong answer so it shows up under "Words you mix up"
+      const miss = { ...rec?.miss };
+      for (const s of step.slots) {
+        const v = vals[s.id]?.trim();
+        if (v && m[s.id] === "bad" && !miss[s.id]?.includes(v)) miss[s.id] = [...(miss[s.id] ?? []), v];
+      }
+      patch({ slots: vals, tries: tries + 1, pts: fp, miss });
       say(
         wrong === 1 ? "Just one box is off. Find the red one and re-think it." : `${wrong} boxes aren't right yet (they're the red ones). Take another look${step.slots.some((s) => !s.answer) ? ", and remember some boxes may stay empty" : ""}.`,
         "think",

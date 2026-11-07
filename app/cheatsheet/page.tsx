@@ -168,18 +168,22 @@ export default function CheatSheet() {
         <Recipe icon="🧁" title="Sorting">
           <div className="table-scroll">
             <table className="cozy">
-              <thead><tr><th>Sort</th><th>Best</th><th>Worst</th></tr></thead>
+              <thead><tr><th>Sort</th><th>Best</th><th>Average</th><th>Worst</th></tr></thead>
               <tbody>
-                <tr><td>Bubble</td><td>n²/n*</td><td>n²</td></tr>
-                <tr><td>Selection</td><td>n²</td><td>n²</td></tr>
-                <tr><td>Insertion</td><td>n</td><td>n²</td></tr>
-                <tr><td>Merge</td><td>n log n</td><td>n log n</td></tr>
-                <tr><td>Quick</td><td>n log n</td><td>n²</td></tr>
-                <tr><td>Heap</td><td>n log n</td><td>n log n</td></tr>
+                <tr><td>Bubble</td><td>n²/n*</td><td>n²</td><td>n²</td></tr>
+                <tr><td>Selection</td><td>n²</td><td>n²</td><td>n²</td></tr>
+                <tr><td>Insertion</td><td>n</td><td>n²</td><td>n²</td></tr>
+                <tr><td>Merge</td><td>n log n</td><td>n log n</td><td>n log n</td></tr>
+                <tr><td>Quick</td><td>n log n</td><td>n log n</td><td>n²</td></tr>
+                <tr><td>Heap</td><td>n log n</td><td>n log n</td><td>n log n</td></tr>
               </tbody>
             </table>
           </div>
           <p className="muted" style={{ fontSize: "0.85rem", margin: "6px 0 0" }}>* with an early-exit check</p>
+          <ul>
+            <li>Insertion swaps: bigger numbers to the left of each element, added up</li>
+            <li>Heap sort: build O(n), then n removals × lg n</li>
+          </ul>
         </Recipe>
 
         <Recipe icon="🍰" title="Recursion">
