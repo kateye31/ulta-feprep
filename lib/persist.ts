@@ -19,6 +19,7 @@ export const KEYS = {
   arcadeNotes: "fe-cafe-arcade-notes-v1",
   arcadeChat: "fe-cafe-arcade-chat-v1",
   studylog: "fe-cafe-studylog-v1",
+  paper: "fe-cafe-paper-v1",
 } as const;
 
 type Rec = { value: string; updated: number };
@@ -94,7 +95,7 @@ function mergeValue(key: string, local: string, lt: number, server: string, st: 
     }
     if (key === KEYS.stamps) return JSON.stringify(Array.from(new Set([...(a as string[]), ...(b as string[])])));
     if (key === KEYS.gymBest) return String(Math.max(+a || 0, +b || 0));
-    if (key === KEYS.arcadeNotes || key === KEYS.arcadeChat) {
+    if (key === KEYS.arcadeNotes || key === KEYS.arcadeChat || key === KEYS.paper) {
       // one entry per question; the most recently edited copy of each entry wins
       const out: Record<string, { t?: number }> = { ...(older as Record<string, { t?: number }>) };
       for (const [k, v] of Object.entries(newer as Record<string, { t?: number }>)) if (!out[k] || (v.t ?? 0) >= (out[k].t ?? 0)) out[k] = v;

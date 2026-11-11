@@ -16,6 +16,7 @@ export const stacks: Topic = {
     <>Operations: <code>push</code> (add to top), <code>pop</code> (remove from top), <code>peek/top</code> (look), <code>isEmpty</code>. All <b>O(1)</b>.</>,
     <>Build it with an <b>array + top index</b>, or a <b>linked list</b> where the head is the top.</>,
     <>The FE&apos;s favorite use: converting <b>infix</b> (<code>A + B * C</code>) to <b>postfix</b> (<code>A B C * +</code>) and <b>evaluating postfix</b>.</>,
+    <>Stacks <b>flip order</b>, which is why they check palindromes: push the first half, then pop and compare with the second.</>,
     <>Stacks are everywhere: undo buttons, browser back, matching parentheses, and <b>recursion itself</b> (the call stack!).</>,
   ],
   picture: {
@@ -112,8 +113,57 @@ int pop(Stack *s) {
         </>
       ),
     },
+    {
+      title: "Writing code with a stack (palindromes)",
+      body: (
+        <>
+          <p><b>The big secret:</b> a stack <b>flips order</b>. Push the first half of a word, and popping hands it back reversed. A palindrome&apos;s second half is exactly its first half reversed, so each pop should match the next letter.</p>
+          <p><b>🍳 The recipe:</b></p>
+          <ol>
+            <li>⬆️ Push letters <code>0</code> up to (not including) <code>len/2</code>.</li>
+            <li>⏭️ Start the second loop at <code>len - len/2</code>. That skips the middle letter of an odd word.</li>
+            <li>⬇️ Pop once per letter. Different from <code>str[i]</code>? Return 0 right away.</li>
+            <li>✅ Made it through? Return 1.</li>
+          </ol>
+          <div className="table-scroll">
+            <table className="cozy">
+              <thead>
+                <tr><th>Word</th><th>len</th><th>Push (len/2)</th><th>2nd loop starts</th><th>Pops vs. letters</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>racecar</td><td>7</td><td>r a c</td><td>4 (skips the e)</td><td>c=c, a=a, r=r → 1</td></tr>
+                <tr><td>hannah</td><td>6</td><td>h a n</td><td>3</td><td>n=n, a=a, h=h → 1</td></tr>
+                <tr><td>test</td><td>4</td><td>t e</td><td>2</td><td>e≠s → 0</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <Code
+            title="isPalindrome (FE, I-A Q3, 10 pts)"
+            src={`
+int isPalindrome(char *str) {
+    struct stack s;
+    initialize(&s);
+    int len = strlen(str);
+
+    for (int i = 0; i < len/2; i++)        // push the first half
+        push(&s, str[i]);
+
+    for (int i = len - len/2; i < len; i++) // walk the second half
+        if (pop(&s) != str[i])              // popped letter ≠ this letter?
+            return 0;
+
+    return 1;                               // every letter matched
+}`}
+          />
+          <Callout kind="warn" title="Stack functions take &s, never the word">
+            <code>isEmpty(str)</code> hands the function a word where it wants a stack. Write <code>isEmpty(&amp;s)</code>, <code>push(&amp;s, c)</code> and <code>pop(&amp;s)</code>.
+          </Callout>
+        </>
+      ),
+    },
   ],
   widgets: ["stack", "postfix"],
+  drills: [["Palindrome with a stack (FE redo)", "exam-redo/fe-stack-palindrome.c"]],
   mnemonics: [
     { hook: "LIFO = Last In, First Out(of the pan) 🥞", body: <p>The freshest pancake gets eaten first.</p> },
     { hook: "Stronger-or-equal on top? Kick 'em out 👑", body: <p>An incoming operator kicks <b>out</b> anyone on the stack who is <b>as strong or stronger</b> (≥ precedence), then sits on top. Parentheses are walls ( 🧱 ) nobody can push past.</p> },
@@ -141,6 +191,11 @@ int pop(Stack *s) {
     <>Putting parentheses in the postfix output. They should <b>never</b> appear there.</>,
     <>FE asks you to show the stack contents at certain points (like &ldquo;after reading the 2nd *&rdquo;). Write the stack <b>bottom → top</b> and label it!</>,
     <>Array stack: <code>top</code> starts at <b>-1</b>, not 0 (in the usual COP3502 implementation).</>,
+    <>Passing the word to a stack function: <code>isEmpty(str)</code>. Every stack function takes the stack&apos;s address, <code>&amp;s</code>.</>,
+    <>Writing <code>if (isEmpty == 1)</code>. Without parentheses you never call the function. Call it: <code>isEmpty(&amp;s)</code>.</>,
+    <>Solving a &ldquo;use the stack&rdquo; question without the stack. The credit is for pushing and popping, not for the right answer.</>,
+    <>Starting the second half at <code>len/2</code> on an odd word. For racecar that lands on the middle e, which you never pushed. Start at <code>len - len/2</code>.</>,
+    <>Using <code>peek</code> where you meant <code>pop</code>. Peek leaves the letter on top, so you compare the same one every time.</>,
   ],
   example: {
     title: "Worked problem: convert to postfix",
@@ -175,6 +230,12 @@ int pop(Stack *s) {
       answer: 1,
       why: <><code>*</code> binds tighter, so <code>B C *</code> happens first, then <code>+</code>. (The last choice is <i>prefix</i>.)</>,
     },
+    {
+      q: <>Checking <code>&quot;level&quot;</code> with a stack: you push <code>l e</code>. Which letters do you compare pops against?</>,
+      choices: ["v, e, l", "e, l", "l, e", "l, e, v, e, l"],
+      answer: 1,
+      why: <>len = 5, so the second loop starts at 5 − 2 = 3: letters e and l. The pops give e then l, a match. The middle v is never pushed or compared.</>,
+    },
   ],
   flashcards: [
     { front: "LIFO stands for…", back: "Last In, First Out (stack)." },
@@ -183,6 +244,9 @@ int pop(Stack *s) {
     { front: "Postfix eval: when you see an operator…", back: "Pop right operand, pop left operand, compute left OP right, push result." },
     { front: "Empty array-stack's top index?", back: "-1" },
     { front: "Stack via linked list: push/pop happen where?", back: "At the head (front) → O(1)." },
+    { front: "Palindrome with a stack: the plan", back: "Push the first len/2 letters. Then from len − len/2 to the end, pop and compare. Mismatch → 0. Done → 1." },
+    { front: "What do stack functions take?", back: "The stack's address: push(&s, c), pop(&s), isEmpty(&s). Never the word." },
+    { front: "racecar: where does the second loop start?", back: "len − len/2 = 7 − 3 = 4. That skips the middle e." },
   ],
   resources: [
     { label: "USFCA: Stack (array) animation", url: "https://www.cs.usfca.edu/~galles/visualization/StackArray.html", kind: "visual" },

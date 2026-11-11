@@ -3,6 +3,8 @@ import { RisoArt } from "@/components/RisoArt";
 import Link from "next/link";
 import { Callout } from "@/components/ui";
 import { ExamCountdown, ReadChecklist } from "@/components/PlanWidgets";
+import { ChapterChips } from "@/components/BookRead";
+import { chAnchor, chapter, chLabel, READING_ORDER, type ChapterId } from "@/lib/standish";
 import { GUHA_OFFICE_HOURS, LAST_EXAM, PROFESSOR_NOTES, READ_CHECKLIST } from "@/content/me";
 
 export const metadata: Metadata = { title: "🧭 My Plan", description: "A study plan built from my last Foundation Exam and my professor's notes." };
@@ -13,6 +15,7 @@ const PRIORITIES = [
   {
     emoji: "🍰",
     title: "Write code from scratch (Section II-B)",
+    book: [3, 13, 14] as ChapterId[],
     why: "Part D came out 1 · 0 · 1. Your professor said the same: tracing is fine, WRITING is the gap. This is the biggest pile of points.",
     do: [
       { label: "Studio: linked list drill (recursive length & delete)", href: "/studio?open=professor-drills/1-linked-list.c" },
@@ -25,6 +28,7 @@ const PRIORITIES = [
   {
     emoji: "⏱",
     title: "Runtime of code (Section II-A)",
+    book: [6, "A", 3] as ChapterId[],
     why: "Part C was 2 · 9 · 0, and you said you don't know the runtime of anything yet. The good news: runtime is a small set of patterns, and reps make them automatic.",
     do: [
       { label: "Runtime Gym: 10 reps a day", href: "/runtime" },
@@ -37,6 +41,7 @@ const PRIORITIES = [
   {
     emoji: "🌳",
     title: "Binary trees & heaps (Section I-B)",
+    book: [9] as ChapterId[],
     why: "Part B was 1 · 3 · 8, and your professor flagged heaps and binary trees by name.",
     do: [
       { label: "Studio: write your own BST", href: "/studio?open=professor-drills/2-bst.c" },
@@ -49,6 +54,7 @@ const PRIORITIES = [
   {
     emoji: "💡",
     title: "Bitwise operators",
+    book: [] as ChapterId[],
     why: "On your professor's list. It's a small topic with very learnable points: 4 recipes and binary conversion.",
     do: [
       { label: "Studio: bitwise drill (predict on paper first!)", href: "/studio?open=professor-drills/3-bitwise.c" },
@@ -58,6 +64,7 @@ const PRIORITIES = [
   {
     emoji: "📦",
     title: "Dynamic memory & linked lists: precision (Section I-A)",
+    book: [2, 8] as ChapterId[],
     why: "Part A was 2 · 2 · 9. You KNOW this material. Your journal shows the points leaked from misreading (return type, sizeof, return NULL, free order).",
     do: [
       { label: "Journal: redo each question in the Studio", href: "/journal" },
@@ -139,6 +146,11 @@ export default function PlanPage() {
               <div>
                 <h3 style={{ margin: "0 0 4px" }}>{p.title}</h3>
                 <p className="muted" style={{ margin: "0 0 10px" }}>{p.why}</p>
+                {p.book.length > 0 && (
+                  <p style={{ margin: "0 0 10px", display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap" }}>
+                    <b>📕 Read:</b> <ChapterChips ids={p.book} />
+                  </p>
+                )}
                 <div className="controls" style={{ margin: 0 }}>
                   {p.do.map((d) => (
                     <Link key={d.href + d.label} href={d.href} className="btn small secondary">
@@ -156,8 +168,36 @@ export default function PlanPage() {
       </section>
 
       <section style={{ marginBottom: 40 }}>
+        <h2>📕 The reading track (Standish)</h2>
+        <p className="muted">
+          The textbook is the spine of the plan. Read the chapter <b>first</b>, then do that topic&apos;s page, recipe and FE 100 problems. Each topic page&apos;s 📕 section says exactly
+          what to look for. <Link href="/library">How to get the book and how to read it →</Link>
+        </p>
+        <div className="grid" style={{ gap: 10 }}>
+          {READING_ORDER.map((w) => (
+            <div key={w.week} className="card" style={{ padding: "12px 16px", display: "grid", gridTemplateColumns: "minmax(90px, auto) minmax(0, 1fr)", gap: 12, alignItems: "center" }}>
+              <b>{w.week}</b>
+              <div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 4 }}>
+                  {w.ch.map((id) => (
+                    <Link key={String(id)} href={`/library#${chAnchor(id)}`} className="book-chip">
+                      📕 {chLabel(id)} · {chapter(id)?.title}
+                    </Link>
+                  ))}
+                </div>
+                <span className="muted" style={{ fontSize: "0.88rem" }}>{w.note}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section style={{ marginBottom: 40 }}>
         <h2>☕ The daily 3-brew routine</h2>
         <p className="muted">Three 🍅 brew timers (bottom-right corner) with sip breaks in between. That&apos;s it. Consistency beats marathons, especially for ADHD brains.</p>
+        <Callout kind="tip" title="Before the brews: 20 minutes of Standish" icon="📕">
+          Read this week&apos;s chapter with the topic page&apos;s questions open. Close the book and say back what you read. Then start Brew 1.
+        </Callout>
         <div className="grid grid-3">
           <div className="card">
             <div style={{ fontSize: "2rem" }}>⏱</div>

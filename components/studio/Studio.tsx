@@ -71,9 +71,15 @@ export default function Studio() {
       const fresh = !f;
       if (!f) f = await seedFS();
       const want = new URLSearchParams(location.search).get("open");
+      const list = await starterList();
+      // a drill added after your Studio was set up: fetch it the first time a link opens it
+      if (want && !isFile(f, want) && list.includes(want)) {
+        const text = await fetchStarter(want);
+        if (text != null) f = writeFile(f, want, text);
+      }
       if (want && isFile(f, want)) f = { ...f, open: want, cwd: parentOf(want) };
       setFs(f);
-      setStarters(await starterList());
+      setStarters(list);
       setLines([
         { kind: "info", text: fresh ? "🌸 Welcome to your Code Studio! I set up your practice folders." : "🌸 Welcome back! Everything you wrote is right where you left it." },
         { kind: "dim", text: "Type `help` for commands, or press ▶ Run. No AI in here, just you + gcc 💜" },

@@ -13,6 +13,8 @@
     "exam-redo/sum26-q3-ring-queue.c",
     "exam-redo/spr20-delete-shows.c",
     "exam-redo/sum19-cartpoints.c",
-    "exam-redo/sum23-freelist-fix.c"
+    "exam-redo/sum23-freelist-fix.c",
+    "exam-redo/fe-stack-palindrome.c",
+    "exam-redo/fe-file-team.c"
   ]
 }

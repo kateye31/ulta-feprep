@@ -3,6 +3,8 @@ import type { Resource, Topic } from "@/lib/types";
 import { NOTES_BASE, SECTIONS } from "@/lib/sections";
 import { MASCOT_NAMES } from "./characters";
 import { GuhaNote } from "./GuhaNote";
+import { BookRead } from "./BookRead";
+import { READING } from "@/lib/standish";
 import { RisoArt } from "./RisoArt";
 import { TopicPractice } from "./TopicPractice";
 import { artTags } from "@/lib/potd/topics";
@@ -44,6 +46,7 @@ export default function TopicView({ topic: t, prev, next }: { topic: Topic; prev
   const toc = [
     { id: "tldr", label: "🍵 TL;DR" },
     { id: "guha", label: "🎓 Guha's way" },
+    ...(READING[t.slug] ? [{ id: "book", label: "📕 Textbook" }] : []),
     { id: "picture", label: "🖼 Picture it" },
     { id: "levels", label: "🪜 Level up" },
     ...(t.widgets?.length ? [{ id: "play", label: "🎮 Play" }] : []),
@@ -103,6 +106,12 @@ export default function TopicView({ topic: t, prev, next }: { topic: Topic; prev
             <Sec id="guha" icon="🎓" title="The way Guha teaches it" sub="Arup Guha's COP 3502 material, explained here in plain words." bg="butter">
               <GuhaNote topic={t.slug} />
             </Sec>
+
+            {READING[t.slug] && (
+              <Sec id="book" icon="📕" title="Read it in the textbook" sub="Standish goes deeper than the summaries. Read with a question in mind, then close the book and do it." bg="blush">
+                <BookRead slug={t.slug} />
+              </Sec>
+            )}
 
             <Sec id="picture" icon="🖼" title="Picture it" sub="Before the code, a picture from real life." bg="sky">
               <div className="card picture">

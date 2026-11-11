@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { inline } from "@/components/arcade/Rich";
 import type { Recipe } from "@/lib/recipes";
+import { ChapterChips } from "@/components/BookRead";
+import { RECIPE_BOOK } from "@/lib/standish";
 
 /** One recipe: how to spot it, the numbered steps, and the trap. Collapsible so it never crowds the page. */
 export function RecipeCard({ recipe, open = true, link = true, id, remember }: { recipe: Recipe; open?: boolean; link?: boolean; id?: string; remember?: string }) {
@@ -67,6 +69,11 @@ export function RecipeCard({ recipe, open = true, link = true, id, remember }: {
       <p className="rcard-trap">
         <b>⚠️ Trap:</b> {inline(recipe.trap)}
       </p>
+      {!!RECIPE_BOOK[recipe.id]?.length && (
+        <p className="rcard-book">
+          <b>📕 Textbook:</b> <ChapterChips ids={RECIPE_BOOK[recipe.id]} small />
+        </p>
+      )}
       {link && (
         <p className="rcard-more">
           <Link href={`/recipes#${recipe.id}`}>All recipes →</Link>

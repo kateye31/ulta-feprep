@@ -24,6 +24,8 @@ const MORE = [
   { href: "/flashcards", label: "Flashcards" },
   { href: "/cheatsheet", label: "Cheat Sheet" },
   { href: "/exams", label: "Past Exams" },
+  { href: "/print", label: "Paper Practice" },
+  { href: "/library", label: "Library" },
 ];
 
 export default function Nav() {

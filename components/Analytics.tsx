@@ -5,6 +5,9 @@ import { createContext, useContext, useMemo, useRef, useState, type ReactNode } 
 import { ARCADE_EXAMS } from "@/content/arcade";
 import { analyze, SECTION_NAMES, weakest, type Analytics as Data, type SectionId, type TopicStat } from "@/lib/analytics";
 import { saveStore } from "@/lib/arcade/store";
+import { paperStore, type PaperRec } from "@/lib/paper";
+import { getRecipe } from "@/lib/recipes";
+import { chAnchor, chLabel, RECIPE_BOOK } from "@/lib/standish";
 
 /** one color per section, checked for colorblind separation on the cream card (see the dataviz validator) */
 const SEC_COLOR: Record<SectionId, string> = { A: "#b3262c", B: "#3f5fb0", C: "#c98a10", D: "#8a4bab" };
@@ -122,6 +125,57 @@ function Coverage({ topics }: { topics: TopicStat[] }) {
   );
 }
 
+// ── 📏 cold checks: first tries on paper, the honest progress number ──
+const avg = (rs: PaperRec[]) => pct(rs.reduce((n, r) => n + r.score, 0), rs.reduce((n, r) => n + r.pts, 0));
+const short = (day: string) => new Date(day + "T12:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" });
+
+function ColdChecks() {
+  const on = useOn();
+  const paper = paperStore.use();
+  const all = Object.values(paper).sort((a, b) => a.day.localeCompare(b.day) || a.t - b.t);
+  const cold = all.filter((r) => r.cold);
+  const redo = all.filter((r) => !r.cold);
+  const title = (r: PaperRec) => ARCADE_EXAMS.find((e) => e.id === r.exam)?.sections.flatMap((s) => s.questions).find((q) => q.id === r.q)?.title ?? `#${r.q}`;
+  if (!cold.length)
+    return (
+      <p className="an-empty">
+        No cold checks yet. Print a question you&apos;ve never seen from <Link href="/print">Paper Practice</Link>, do it by hand on a timer, and log the score. That score shows here.
+      </p>
+    );
+  const k = Math.min(3, Math.floor(cold.length / 2));
+  return (
+    <>
+      {k > 0 && (
+        <p className="an-sub" style={{ margin: "0 0 10px" }}>
+          Your first {k} cold check{k > 1 ? "s" : ""}: <b>{avg(cold.slice(0, k))}%</b> → your latest {k}: <b>{avg(cold.slice(-k))}%</b>
+        </p>
+      )}
+      <div className="an-bar-group">
+        {cold.slice(-12).map((r) => {
+          const rec = r.recipe ? getRecipe(r.recipe) : undefined;
+          const v = pct(r.score, r.pts);
+          return (
+            <div key={`${r.exam}/${r.q}@${r.day}`} className="an-bar-row" tabIndex={0} {...on(<><b>{title(r)}</b><br />{short(r.day)} · {r.score}/{r.pts} pts{rec ? <> · {rec.name}</> : null}</>)}>
+              <span className="an-bar-label">
+                {short(r.day)} · {title(r)}
+              </span>
+              <span className="an-bar-track">
+                <span className="an-bar-fill" style={{ width: `${v}%`, background: rec ? SEC_COLOR[rec.section] : "var(--plum)" }} />
+              </span>
+              <span className="an-bar-val">{v}%</span>
+            </div>
+          );
+        })}
+      </div>
+      {redo.length > 0 && (
+        <p className="an-sub" style={{ margin: "10px 0 0" }}>
+          Redos on paper: {avg(redo)}% across {redo.length}. Those test memory, so they&apos;re kept off this chart.
+        </p>
+      )}
+    </>
+  );
+}
+
 // ── 🚩 the topics you lose the most on ──
 function Misses({ topics }: { topics: TopicStat[] }) {
   const on = useOn();
@@ -140,7 +194,12 @@ function Misses({ topics }: { topics: TopicStat[] }) {
                 <b>
                   {t.recipe.emoji} {t.recipe.name}
                 </b>
-                <Link href={`/recipes#${t.recipe.id}`}>🧾 recipe →</Link>
+                <span style={{ display: "inline-flex", gap: 10, flexWrap: "wrap" }}>
+                  {(RECIPE_BOOK[t.recipe.id] ?? []).slice(0, 1).map((c) => (
+                    <Link key={String(c)} href={`/library#${chAnchor(c)}`}>📕 {chLabel(c)}</Link>
+                  ))}
+                  <Link href={`/recipes#${t.recipe.id}`}>🧾 recipe →</Link>
+                </span>
               </div>
               <span className="an-bar-track" {...on(<>lost <b>{+lost.toFixed(1)}</b> of {t.tried} pts · {t.slips} slips over {t.done} steps</>)} tabIndex={0}>
                 <span className="an-bar-fill" style={{ width: `${(Math.max(lost, 0.5) / max) * 100}%`, background: "var(--cherry)" }} />
@@ -279,6 +338,9 @@ export default function Analytics() {
         </Card>
         <Card title="🚩 Topics you tend to miss" sub="Ranked by points lost, then slips. Read the recipe before the next one." className="an-span-1">
           <Misses topics={data.topics} />
+        </Card>
+        <Card title="📏 Cold checks: the real test" sub="First tries on paper, at questions you'd never seen. If this goes up, you're getting better." className="an-span-2">
+          <ColdChecks />
         </Card>
         <Card title="📈 Your last two weeks" sub="Steps finished per day." className="an-span-2">
           <Line days={data.days} />
